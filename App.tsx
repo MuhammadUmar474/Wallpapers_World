@@ -1,12 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import Explore from './src/screens/Explore/Explore';
+import Route from './src/navigation/route';
 
 const App = () => {
   return (
     <View style={{flex: 1}}>
-      <Explore />
+      <Route />
     </View>
   );
 };
