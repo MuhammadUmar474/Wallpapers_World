@@ -1,13 +1,19 @@
 import React from 'react';
-import {Text, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 import style from './Styles';
-import {Text16} from '../../components/Text/Text';
+import ButtonComp from '../../components/ButtonComp/ButtonComp';
+import {hp} from '../../utils/dimensionUtils/dimensions';
+import {Text16, Text28} from '../../components/Text/Text';
 
 const Explore = () => {
   return (
     <SafeAreaView style={style.container}>
-      <Text16>Explore</Text16>
+      <Text28 textStyle={style.exploreTxt}>Explore Wallpapers World</Text28>
+      <Text16 textStyle={style.exploreTxt}>
+        Explore , View and Share {'\n'} HD Wallpapers Now!
+      </Text16>
+      <ButtonComp btnName={'Start Explore'} styleBtn={{marginTop: hp('2')}} />
     </SafeAreaView>
   );
 };
