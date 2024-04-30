@@ -3,12 +3,12 @@ import {SafeAreaView, Text} from 'react-native';
 
 import style from './Styles';
 
-const Copy = () => {
+const Likes = () => {
   return (
     <SafeAreaView style={style.container}>
-      <Text>Copy</Text>
+      <Text>Likes</Text>
     </SafeAreaView>
   );
 };
 
-export default Copy;
+export default Likes;

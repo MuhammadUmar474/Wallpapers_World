@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     width: wp('80'),
   },
   iconStyle: {height: 22, width: 22},
+  btnTxt: {color: COLORS.primary},
   backBtn: {
     height: 56,
     width: 56,
