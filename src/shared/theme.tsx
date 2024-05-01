@@ -2,6 +2,7 @@ export const COLORS = {
   black: '#000000',
   white: '#FFFFFF',
   background: '#12111A',
+  borderColor: '#756D5E',
   btnBackground: '#3A39404D',
   divider: '#3A3940',
   primary: '#1A0F1A',

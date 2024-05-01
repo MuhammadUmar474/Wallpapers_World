@@ -21,7 +21,7 @@ function ExploreScreens() {
   return (
     <ExploreStack.Navigator screenOptions={{headerShown: false}}>
       <ExploreStack.Screen name="Explore" component={Explore} />
-      <ExploreStack.Screen name="Home" component={Home} />
+      <ExploreStack.Screen name="BottomTab" component={BottomTab} />
     </ExploreStack.Navigator>
   );
 }
@@ -157,9 +157,8 @@ function Route() {
   return (
     <NavigationContainer ref={navigationRef}>
       <>
-        {/* <StatusBarComp />
-        <ExploreScreens /> */}
-        <BottomTab />
+        <StatusBarComp />
+        <ExploreScreens />
       </>
     </NavigationContainer>
   );
@@ -169,16 +168,16 @@ export default Route;
 
 const styles = StyleSheet.create({
   barStyle: {
-    height: 52,
-    position: 'absolute',
-    backgroundColor: COLORS.transparent,
+    height: hp('7'),
+    alignItems: 'center',
     justifyContent: 'center',
-    left: wp('8'),
-    right: wp('8'),
-    bottom: hp('3'),
+    bottom: 20,
+    backgroundColor: COLORS.transparent,
+    marginHorizontal: wp(8),
+    padding: 2,
     borderRadius: wp('20'),
     borderWidth: 1,
-    borderColor: '#756D5E',
+    borderColor: COLORS.borderColor,
     overflow: 'hidden',
   },
   tabStyle: {
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: wp('27'),
     height: hp('6'),
-    bottom: hp('1.2'),
+    marginTop: hp('0.5'),
     borderRadius: wp('20'),
   },
   inactiveBg: {
