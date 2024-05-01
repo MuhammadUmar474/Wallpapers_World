@@ -6,7 +6,7 @@ export const COLORS = {
   btnBackground: '#3A39404D',
   divider: '#3A3940',
   primary: '#1A0F1A',
-
+  blurWhite:'rgba(255,255,255,0.3)',
   transparent: 'transparent',
 
   grey300: '#616066',
