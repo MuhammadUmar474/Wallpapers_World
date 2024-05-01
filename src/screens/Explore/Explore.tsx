@@ -18,7 +18,7 @@ const Explore = () => {
         btnName={'Start Explore'}
         styleBtn={{marginTop: hp('2')}}
         onPress={() => {
-          navigate('Home');
+          navigate('BottomTab');
         }}
       />
     </SafeAreaView>
