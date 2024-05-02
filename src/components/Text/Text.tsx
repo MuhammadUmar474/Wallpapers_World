@@ -105,7 +105,7 @@ const style = StyleSheet.create({
   },
   Text24: {
     fontSize: 24,
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Bold',
   },
   Text28: {
     fontSize: 28,
