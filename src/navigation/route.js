@@ -49,7 +49,7 @@ const BottomTab = () => (
       }}
     />
     <Tab.Screen
-      name="Likes"
+      name="Like"
       component={LikesScreens}
       options={{
         tabBarIcon: ({color, focused}) => (
