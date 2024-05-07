@@ -9,6 +9,8 @@ import style from './Styles';
 import Chip from '../../components/Chip/Chip';
 import WallpaperComp from '../../components/WallpaperComp/WallpaperComp';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
+import {navigate} from '../../navigation/rootNavigation';
+import {ImgsPath} from '../../assets/images/ImagesPath';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
@@ -16,6 +18,7 @@ const Home = () => {
   const handleOption = (title: string) => {
     setSelectedItem(title);
   };
+
   return (
     <View style={style.container}>
       <View style={{height: hp('100'), backgroundColor: COLORS.primary}}>
@@ -44,7 +47,12 @@ const Home = () => {
             numColumns={2}
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
-              <WallpaperComp selectedItem={selectedItem} onPress={() => {}} />
+              <WallpaperComp
+                selectedItem={selectedItem}
+                onPress={() =>
+                  navigate('Preview', {uri: ImgsPath.exploreBackGround})
+                }
+              />
             )}
           />
         </View>
