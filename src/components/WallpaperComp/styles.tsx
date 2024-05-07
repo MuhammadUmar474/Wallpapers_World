@@ -16,6 +16,18 @@ const styles = StyleSheet.create({
     width: wp('44'),
     borderRadius: 16,
   },
+  likeStyle: {
+    borderColor: COLORS.white,
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    alignSelf: 'flex-end',
+  },
 });
 
 export default styles;

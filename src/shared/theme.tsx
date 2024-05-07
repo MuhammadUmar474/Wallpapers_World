@@ -13,7 +13,7 @@ export const COLORS = {
 
   transparent: 'transparent',
 
-  error600: 'rgba(217, 45, 32, 1)',
+  red: '#FF0000',
 
   shadow: {
     shadowColor: '#3F4D77',
