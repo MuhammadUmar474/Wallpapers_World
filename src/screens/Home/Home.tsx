@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {FlatList, View} from 'react-native';
 
-import style from './Styles';
-import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {COLORS} from '../../shared/theme';
-import HorizontalView from '../../components/HorizontalView/HorizontalView';
 import {Text24} from '../../components/Text/Text';
-import Chip from '../../components/Chip/Chip';
+import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {OptionsData} from '../../assets/data/StaticData/StaticData';
+import style from './Styles';
+import Chip from '../../components/Chip/Chip';
+import WallpaperComp from '../../components/WallpaperComp/WallpaperComp';
+import HorizontalView from '../../components/HorizontalView/HorizontalView';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
@@ -22,7 +23,6 @@ const Home = () => {
           <HorizontalView>
             <Text24 textStyle={{color: COLORS.white}}>HD Wallpapers</Text24>
           </HorizontalView>
-
           <FlatList
             style={{marginTop: hp('2')}}
             data={OptionsData}
@@ -35,6 +35,16 @@ const Home = () => {
                 selectedItem={selectedItem}
                 onPress={() => handleOption(item.title)}
               />
+            )}
+          />
+
+          <FlatList
+            style={{marginTop: hp('2')}}
+            data={[{}, {}, {}, {}]}
+            numColumns={2}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => (
+              <WallpaperComp selectedItem={selectedItem} onPress={() => {}} />
             )}
           />
         </View>
