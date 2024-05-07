@@ -12,6 +12,9 @@ import {hp, wp} from '../utils/dimensionUtils/dimensions';
 import {Entypo} from '../shared/vectorIcons';
 import {COLORS} from '../shared/theme';
 import {StyleSheet, View} from 'react-native';
+import More from '../screens/More/More';
+import MoreApps from '../screens/More/MoreApps/MoreApps';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -33,6 +36,16 @@ function LikesScreens() {
     <LikesStack.Navigator screenOptions={{headerShown: false}}>
       <LikesStack.Screen name="Likes" component={Likes} />
     </LikesStack.Navigator>
+  );
+}
+
+const MoreStack = createNativeStackNavigator();
+function MoreScreens() {
+  return (
+    <MoreStack.Navigator screenOptions={{headerShown: false}}>
+      <MoreStack.Screen name="more" component={More} />
+      <MoreStack.Screen name="MoreApps" component={MoreApps} />
+    </MoreStack.Navigator>
   );
 }
 const BottomTab = () => (
@@ -60,8 +73,8 @@ const BottomTab = () => (
       }}
     />
     <Tab.Screen
-      name="Explore"
-      component={Explore}
+      name="More"
+      component={MoreScreens}
       options={{
         tabBarIcon: ({color, focused}) => (
           <View style={[styles.tabStyle, !focused && styles.inactiveBg]}>
