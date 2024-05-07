@@ -3,6 +3,15 @@ import {Entypo} from '../../../shared/vectorIcons';
 import {wp} from '../../../utils/dimensionUtils/dimensions';
 import {ImgsPath} from '../../images/ImagesPath';
 
+export const OptionsData = [
+  {id: '1', title: 'Recents'},
+  {id: '2', title: 'Trending'},
+  {id: '3', title: 'Popular'},
+  {id: '4', title: 'Nature'},
+  {id: '5', title: 'Pets'},
+  {id: '6', title: 'Animals'},
+];
+
 export const MoreList = [
   {
     icon: <Entypo name="grid" size={wp('6.5')} color={COLORS?.black} />,
