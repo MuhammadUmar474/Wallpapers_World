@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {FlatList, TouchableOpacity, View} from 'react-native';
 
 import {COLORS} from '../../shared/theme';
 import {Text24} from '../../components/Text/Text';
@@ -12,10 +12,20 @@ import HorizontalView from '../../components/HorizontalView/HorizontalView';
 import {navigate} from '../../navigation/rootNavigation';
 import {ImgsPath} from '../../assets/images/ImagesPath';
 import SearchComp from '../../components/SearchComp/SearchComp';
+import { AppIcons } from '../../assets/data/AppIconData/AppIconData';
+import AppContext from '../../context/AppContext';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
   const [searchItem, setSearchItem] = useState('');
+  const [isLightMode , setIsLightMode] = useState(true)
+  const {updateColor, selectedColor} = useContext(AppContext);
+  const {sunIcon, moonIcon} = AppIcons();
+
+  const onThemePress = ()=>{
+    setIsLightMode(!isLightMode)
+    updateColor(isLightMode)
+  }
 
   const handleOption = (title: string) => {
     setSelectedItem(title);
@@ -25,10 +35,13 @@ const Home = () => {
 
   return (
     <View style={style.container}>
-      <View style={{height: hp('100'), backgroundColor: COLORS.primary}}>
+      <View style={{height: hp('100'), backgroundColor:selectedColor ?  COLORS.primary : COLORS?.white}}>
         <View style={{marginTop: hp('6'), marginHorizontal: wp('5')}}>
           <HorizontalView>
-            <Text24 textStyle={{color: COLORS.white}}>HD Wallpapers</Text24>
+            <Text24 textStyle={{color:selectedColor ? COLORS.white : COLORS?.primary}}>HD Wallpapers</Text24>
+            <TouchableOpacity onPress={onThemePress}>
+              {isLightMode ? sunIcon : moonIcon}
+            </TouchableOpacity>
           </HorizontalView>
 
           <SearchComp
