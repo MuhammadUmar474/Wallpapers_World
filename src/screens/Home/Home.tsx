@@ -11,13 +11,17 @@ import WallpaperComp from '../../components/WallpaperComp/WallpaperComp';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
 import {navigate} from '../../navigation/rootNavigation';
 import {ImgsPath} from '../../assets/images/ImagesPath';
+import SearchComp from '../../components/SearchComp/SearchComp';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
+  const [searchItem, setSearchItem] = useState('');
 
   const handleOption = (title: string) => {
     setSelectedItem(title);
   };
+
+  const onSearchSubmit = () => {};
 
   return (
     <View style={style.container}>
@@ -26,6 +30,12 @@ const Home = () => {
           <HorizontalView>
             <Text24 textStyle={{color: COLORS.white}}>HD Wallpapers</Text24>
           </HorizontalView>
+
+          <SearchComp
+            value={searchItem}
+            onChangeText={setSearchItem}
+            onSubmitEditing={onSearchSubmit}
+          />
           <FlatList
             style={{marginTop: hp('2')}}
             data={OptionsData}
