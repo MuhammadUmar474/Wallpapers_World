@@ -8,14 +8,15 @@ import Explore from '../screens/Explore/Explore';
 import Likes from '../screens/Likes/Likes';
 import {navigationRef} from './rootNavigation';
 import Home from '../screens/Home/Home';
-import {hp, wp} from '../utils/dimensionUtils/dimensions';
+import {hp, isIOS, wp} from '../utils/dimensionUtils/dimensions';
 import {Entypo} from '../shared/vectorIcons';
 import {COLORS} from '../shared/theme';
 import {StyleSheet, View} from 'react-native';
 import More from '../screens/More/More';
 import MoreApps from '../screens/More/MoreApps/MoreApps';
+import Preview from '../screens/Preview/Preview';
 
-
+const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 // EXPLORE
@@ -24,6 +25,7 @@ function ExploreScreens() {
   return (
     <ExploreStack.Navigator screenOptions={{headerShown: false}}>
       <ExploreStack.Screen name="Explore" component={Explore} />
+      <ExploreStack.Screen name="Preview" component={Preview} />
       <ExploreStack.Screen name="BottomTab" component={BottomTab} />
     </ExploreStack.Navigator>
   );
@@ -48,6 +50,7 @@ function MoreScreens() {
     </MoreStack.Navigator>
   );
 }
+
 const BottomTab = () => (
   <Tab.Navigator labeled={false} barStyle={styles.barStyle}>
     <Tab.Screen
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: wp('27'),
     height: hp('6'),
-    marginTop: hp('0.5'),
+    marginTop: isIOS ? hp('0.5') : hp('-1.2'),
     borderRadius: wp('20'),
   },
   inactiveBg: {
