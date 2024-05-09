@@ -6,23 +6,28 @@ import styles from './styles';
 import {COLORS} from '../../shared/theme';
 import AppContext from '../../context/AppContext';
 
-const Chip = (props: any) => {
+interface ChipProps {
+  onPress: () => void;
+  selectedItem: string; // Assuming selectedItem is a string
+  title: string;
+}
+
+const Chip: React.FC<ChipProps> = ({onPress, selectedItem, title}) => {
   const {selectedColor} = useContext(AppContext);
+
   return (
     <TouchableOpacity
       style={[
         styles.container(selectedColor),
-        props.selectedItem == props.title && styles.container1(selectedColor),
+        selectedItem === title && styles.container1(selectedColor),
       ]}
-      onPress={props.onPress}>
+      onPress={onPress}>
       <Text14
         textStyle={{
           color:
-            props.selectedItem == props.title
-              ? COLORS.black
-              : COLORS.unSelectedChipTxt,
+            selectedItem === title ? COLORS.black : COLORS.unSelectedChipTxt,
         }}>
-        {props.title}
+        {title}
       </Text14>
     </TouchableOpacity>
   );
