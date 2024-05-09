@@ -14,6 +14,7 @@ interface ChipProps {
 
 const Chip: React.FC<ChipProps> = ({onPress, selectedItem, title}) => {
   const {selectedColor} = useContext(AppContext);
+  console.log('selectedColor', selectedColor);
 
   return (
     <TouchableOpacity

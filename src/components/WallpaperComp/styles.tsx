@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     height: hp('25'),
     width: wp('44'),
-    borderRadius: 16,
+    borderRadius: 24,
     marginHorizontal: wp('1'),
     marginVertical: hp('1'),
   },
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     height: hp('25'),
     width: wp('44'),
-    borderRadius: 16,
+    borderRadius: 24,
   },
   likeStyle: {
     borderColor: COLORS.white,
