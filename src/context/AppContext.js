@@ -1,16 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Appearance} from 'react-native';
-import {getItemFromAsyncStorage} from '../utils/storage/asyncStorage';
+import {getItemFromAsyncStorage, saveItemInAsyncStorage} from '../utils/storage/asyncStorage';
 
-const colorScheme = Appearance.getColorScheme();
 
 const AppContext = React.createContext();
 
 export const AppProvider = ({children}) => {
   const [selectedFont, setSelectedFont] = useState('');
-  const [selectedColor, setSelectedColor] = useState(
-    colorScheme === 'dark' ? true : false,
-  );
+  const [selectedColor, setSelectedColor] = useState(false);
 
   const loadFontAndColorFromStorage = async () => {
     try {
@@ -37,7 +33,6 @@ export const AppProvider = ({children}) => {
   };
 
   const updateColor = async color => {
-    // console.log('color is',color)
     await saveItemInAsyncStorage('selectedColor', JSON?.stringify(color));
     setSelectedColor(color);
   };
