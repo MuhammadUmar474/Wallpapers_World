@@ -1,5 +1,5 @@
 import {COLORS} from '../../../shared/theme';
-import {Entypo} from '../../../shared/vectorIcons';
+import {Entypo, Feather, FontAwesome, MaterialCommunityIcons} from '../../../shared/vectorIcons';
 import {wp} from '../../../utils/dimensionUtils/dimensions';
 import {ImgsPath} from '../../images/ImagesPath';
 
@@ -25,6 +25,15 @@ export const MoreList = [
     icon: <Entypo name="share" size={wp('6.5')} color={COLORS?.black} />,
     name: 'Share',
   },
+  {
+    icon: <FontAwesome
+    name="phone"  size={wp('6.5')} color={COLORS?.black} />,
+    name: 'Contact Us',
+  },
+  {
+    icon: <MaterialCommunityIcons name="email" size={wp('6.5')} color={COLORS?.black} />,
+    name: 'Email',
+  },
 ];
 
 export const MoreAppsList = [
@@ -39,3 +48,6 @@ export const MoreAppsList = [
     name: 'QuoteWell',
   },
 ];
+
+export const phoneNumber = '+923066447644';
+export const email = 'manaffayyaz4@gmail.com';

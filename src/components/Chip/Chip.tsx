@@ -14,7 +14,6 @@ interface ChipProps {
 
 const Chip: React.FC<ChipProps> = ({onPress, selectedItem, title}) => {
   const {selectedColor} = useContext(AppContext);
-  console.log('selectedColor', selectedColor);
 
   return (
     <TouchableOpacity
@@ -26,7 +25,7 @@ const Chip: React.FC<ChipProps> = ({onPress, selectedItem, title}) => {
       <Text14
         textStyle={{
           color:
-            selectedItem === title ? COLORS.black : COLORS.unSelectedChipTxt,
+            selectedItem === title ? (selectedColor ? COLORS.black : COLORS?.white) : ( selectedColor ?  COLORS.unSelectedChipTxt : COLORS?.black),
         }}>
         {title}
       </Text14>

@@ -11,11 +11,16 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS?.white,
-    padding: 4,
+    width: wp('10'),
+    borderRadius: wp('10'),
+    height: wp('10'),
   },
-  listItem: {marginTop: hp('1'), flexDirection: 'row'},
-  listText: {color: COLORS?.white, marginLeft: wp('6')},
-  InnerContainer: {marginHorizontal: wp('5')},
+  listItem: {marginTop: hp('2'), flexDirection: 'row'},
+  listText: {
+    color: COLORS?.white,
+    marginLeft: wp('6'),
+    textAlignVertical: 'center',
+  },
   Heading: {color: COLORS.white, textAlign: 'center', marginVertical: hp('6')},
   card: {
     marginBottom: hp('2'),
@@ -36,6 +41,14 @@ const style = StyleSheet.create({
     color: COLORS?.white,
     marginBottom: 20,
   },
+  backGroundImg: {height: hp('100'), width: wp('100')},
+  Container2: selectedColor => ({
+    backgroundColor: selectedColor
+      ? 'rgba(58, 57, 64, 0.6)'
+      : COLORS?.btnBackground,
+    height: hp('100'),
+    paddingHorizontal: wp('5'),
+  }),
 });
 
 export default style;
