@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
@@ -15,6 +15,7 @@ import {StyleSheet, View} from 'react-native';
 import More from '../screens/More/More';
 import MoreApps from '../screens/More/MoreApps/MoreApps';
 import Preview from '../screens/Preview/Preview';
+import AppContext from '../context/AppContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -51,14 +52,16 @@ function MoreScreens() {
   );
 }
 
-const BottomTab = () => (
-  <Tab.Navigator labeled={false} barStyle={styles.barStyle}>
+const BottomTab = () => {
+  const {selectedColor} = useContext(AppContext)
+  return(
+    <Tab.Navigator labeled={false} barStyle={styles.barStyle(selectedColor)}>
     <Tab.Screen
       name="Home"
       component={Home}
       options={{
         tabBarIcon: ({color, focused}) => (
-          <View style={[styles.tabStyle, !focused && styles.inactiveBg]}>
+          <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
             <Entypo name="home" size={wp('6')} color={color} />
           </View>
         ),
@@ -69,7 +72,7 @@ const BottomTab = () => (
       component={LikesScreens}
       options={{
         tabBarIcon: ({color, focused}) => (
-          <View style={[styles.tabStyle, !focused && styles.inactiveBg]}>
+          <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
             <Entypo name="heart" size={wp('6')} color={color} />
           </View>
         ),
@@ -80,14 +83,15 @@ const BottomTab = () => (
       component={MoreScreens}
       options={{
         tabBarIcon: ({color, focused}) => (
-          <View style={[styles.tabStyle, !focused && styles.inactiveBg]}>
+          <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
             <Entypo name="grid" size={wp('6.5')} color={color} />
           </View>
         ),
       }}
     />
   </Tab.Navigator>
-);
+  )
+};
 
 // ROUTE
 function Route() {
@@ -104,7 +108,7 @@ function Route() {
 export default Route;
 
 const styles = StyleSheet.create({
-  barStyle: {
+  barStyle:(selectedColor)=>({
     height: hp('7'),
     alignItems: 'center',
     justifyContent: 'center',
@@ -114,18 +118,18 @@ const styles = StyleSheet.create({
     padding: 2,
     borderRadius: wp('20'),
     borderWidth: 1,
-    borderColor: COLORS.borderColor,
+    borderColor: selectedColor ? COLORS?.white  :  COLORS.borderColor,
     overflow: 'hidden',
-  },
-  tabStyle: {
-    backgroundColor: COLORS.white,
+  }),
+  tabStyle:(selectedColor) =>({
+    backgroundColor:selectedColor ?  COLORS.white : COLORS?.selectedChip,
     alignItems: 'center',
     justifyContent: 'center',
     width: wp('27'),
     height: hp('6'),
     marginTop: isIOS ? hp('0.5') : hp('-1.2'),
     borderRadius: wp('20'),
-  },
+  }),
   inactiveBg: {
     backgroundColor: COLORS.transparent,
   },
