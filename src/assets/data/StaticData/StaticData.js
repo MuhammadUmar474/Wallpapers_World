@@ -1,5 +1,10 @@
 import {COLORS} from '../../../shared/theme';
-import {Entypo, Feather, FontAwesome, MaterialCommunityIcons} from '../../../shared/vectorIcons';
+import {
+  Entypo,
+  Feather,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from '../../../shared/vectorIcons';
 import {wp} from '../../../utils/dimensionUtils/dimensions';
 import {ImgsPath} from '../../images/ImagesPath';
 
@@ -8,8 +13,10 @@ export const OptionsData = [
   {id: '2', title: 'Trending'},
   {id: '3', title: 'Popular'},
   {id: '4', title: 'Nature'},
-  {id: '5', title: 'Pets'},
-  {id: '6', title: 'Animals'},
+  {id: '5', title: 'Ocean'},
+  {id: '7', title: 'Tigers'},
+  {id: '8', title: 'Pears'},
+  {id: '9', title: 'Animals'},
 ];
 
 export const MoreList = [
@@ -26,12 +33,17 @@ export const MoreList = [
     name: 'Share',
   },
   {
-    icon: <FontAwesome
-    name="phone"  size={wp('6.5')} color={COLORS?.black} />,
+    icon: <FontAwesome name="phone" size={wp('6.5')} color={COLORS?.black} />,
     name: 'Contact Us',
   },
   {
-    icon: <MaterialCommunityIcons name="email" size={wp('6.5')} color={COLORS?.black} />,
+    icon: (
+      <MaterialCommunityIcons
+        name="email"
+        size={wp('6.5')}
+        color={COLORS?.black}
+      />
+    ),
     name: 'Email',
   },
 ];
