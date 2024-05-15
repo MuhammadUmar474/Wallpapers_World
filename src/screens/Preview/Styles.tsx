@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   img: {
     borderRadius: wp('4'),
     height: hp('90'),
-    width: wp('90'),
+    width: wp('100'),
     alignItems: 'center',
   },
   innerContainer: {

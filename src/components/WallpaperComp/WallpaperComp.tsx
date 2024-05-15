@@ -15,7 +15,7 @@ const WallpaperComp = ({item}: any) => {
     <TouchableOpacity style={styles.container} onPress={onWallPaperPress}>
       <FastImage
         source={{
-          uri: item?.src?.original,
+          uri: item?.src?.medium,
         }}
         style={styles.imgStyle}></FastImage>
       <TouchableOpacity

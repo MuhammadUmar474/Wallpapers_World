@@ -16,6 +16,9 @@ import AppContext from '../../context/AppContext';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  console.log('currentPage', currentPage);
   const [searchItem, setSearchItem] = useState('');
   const [isLightMode, setIsLightMode] = useState(true);
   const [wallPapers, setWallpapers] = useState([]);
@@ -31,12 +34,18 @@ const Home = () => {
     setSelectedItem(title);
   };
 
+  const loadMoreItem = () => {
+    setCurrentPage(currentPage + 1);
+    // setPagination(true);
+  };
+
   const onSearchSubmit = () => {};
 
-  const fetchPhotos = async (page = 1) => {
+  const fetchPhotos = async (selectedItem: string) => {
+    console.log('selectedItem', selectedItem);
     try {
       const res = await axios.get(
-        `https://api.pexels.com/v1/search?query={tiger}&page=${page}&per_page=10`,
+        `https://api.pexels.com/v1/search?query=${selectedItem}&page=${1}&per_page=10`,
         {
           headers: {
             Authorization:
@@ -52,8 +61,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchPhotos();
-  }, []);
+    fetchPhotos(selectedItem);
+  }, [selectedItem]);
   return (
     <View style={style.container}>
       <View
@@ -100,6 +109,8 @@ const Home = () => {
             numColumns={2}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => <WallpaperComp item={item} />}
+            onEndReachedThreshold={0.5}
+            onEndReached={loadMoreItem}
           />
         </View>
       </View>
