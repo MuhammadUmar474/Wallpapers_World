@@ -17,7 +17,7 @@ import MoreApps from '../screens/More/MoreApps/MoreApps';
 import Preview from '../screens/Preview/Preview';
 import AppContext from '../context/AppContext';
 
-const Stack = createNativeStackNavigator();
+
 const Tab = createMaterialBottomTabNavigator();
 
 // EXPLORE
@@ -28,29 +28,12 @@ function ExploreScreens() {
       <ExploreStack.Screen name="Explore" component={Explore} />
       <ExploreStack.Screen name="Preview" component={Preview} />
       <ExploreStack.Screen name="BottomTab" component={BottomTab} />
+      <ExploreStack.Screen name="MoreApps" component={MoreApps} />
     </ExploreStack.Navigator>
   );
 }
 
-// LIKE SCREEN STACK
-const LikesStack = createNativeStackNavigator();
-function LikesScreens() {
-  return (
-    <LikesStack.Navigator screenOptions={{headerShown: false}}>
-      <LikesStack.Screen name="Likes" component={Likes} />
-    </LikesStack.Navigator>
-  );
-}
 
-const MoreStack = createNativeStackNavigator();
-function MoreScreens() {
-  return (
-    <MoreStack.Navigator screenOptions={{headerShown: false}}>
-      <MoreStack.Screen name="more" component={More} />
-      <MoreStack.Screen name="MoreApps" component={MoreApps} />
-    </MoreStack.Navigator>
-  );
-}
 
 const BottomTab = () => {
   const {selectedColor} = useContext(AppContext)
@@ -69,7 +52,7 @@ const BottomTab = () => {
     />
     <Tab.Screen
       name="Like"
-      component={LikesScreens}
+      component={Likes}
       options={{
         tabBarIcon: ({color, focused}) => (
           <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
@@ -80,7 +63,7 @@ const BottomTab = () => {
     />
     <Tab.Screen
       name="More"
-      component={MoreScreens}
+      component={More}
       options={{
         tabBarIcon: ({color, focused}) => (
           <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
