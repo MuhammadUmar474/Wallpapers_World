@@ -15,7 +15,7 @@ const Likes = () => {
   return (
     <View style={style.container}>
       <View style={{height: hp('100'), backgroundColor: selectedColor ? COLORS.background : COLORS?.white}}>
-        <View style={{marginTop: hp('6'), marginHorizontal: wp('5')}}>
+        <View style={{marginTop: hp('6'), marginHorizontal: wp('4')}}>
           <HorizontalView>
             <Text24 textStyle={{color:selectedColor ?  COLORS.white : COLORS?.background}}>HD Wallpapers</Text24>
           </HorizontalView>

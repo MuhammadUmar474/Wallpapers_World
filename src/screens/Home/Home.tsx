@@ -70,7 +70,7 @@ const Home = () => {
           height: hp('100'),
           backgroundColor: selectedColor ? COLORS.primary : COLORS?.white,
         }}>
-        <View style={{marginTop: hp('6'), marginHorizontal: wp('5')}}>
+        <View style={{marginTop: hp('6'), marginHorizontal: wp('4')}}>
           <HorizontalView>
             <Text24
               textStyle={{
@@ -102,7 +102,8 @@ const Home = () => {
               />
             )}
           />
-
+        </View>
+        <View style={{marginHorizontal: wp('4')}}>
           <FlatList
             style={{marginTop: hp('2')}}
             data={wallPapers}
