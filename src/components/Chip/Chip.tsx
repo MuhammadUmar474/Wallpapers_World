@@ -25,7 +25,13 @@ const Chip: React.FC<ChipProps> = ({onPress, selectedItem, title}) => {
       <Text14
         textStyle={{
           color:
-            selectedItem === title ? (selectedColor ? COLORS.black : COLORS?.white) : ( selectedColor ?  COLORS.unSelectedChipTxt : COLORS?.black),
+            selectedItem === title
+              ? selectedColor
+                ? COLORS.black
+                : COLORS?.white
+              : selectedColor
+              ? COLORS.unSelectedChipTxt
+              : COLORS?.black,
         }}>
         {title}
       </Text14>
