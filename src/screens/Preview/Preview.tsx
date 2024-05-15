@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {
@@ -14,12 +14,17 @@ import {Text12} from '../../components/Text/Text';
 import styles from './Styles';
 import Spacer from '../../components/Spacer/Spacer';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
+import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 
 const Preview = ({navigation, route}: any) => {
   const uri = route.params?.uri;
+
+  const [visible, setVisible] = useState<Boolean>(false);
+
   const onBackPress = () => {
     navigation.goBack();
   };
+
   return (
     <View style={styles.container}>
       <HorizontalView style={styles.topBtnContainer}>
@@ -46,7 +51,9 @@ const Preview = ({navigation, route}: any) => {
             <Text12 textStyle={styles.txt}>Share</Text12>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionContainer}>
+          <TouchableOpacity
+            onPress={() => setVisible(!visible)}
+            style={styles.optionContainer}>
             <View style={styles.iconContainer}>
               <Feather name="download" size={wp('7')} color={COLORS.white} />
             </View>
@@ -55,6 +62,8 @@ const Preview = ({navigation, route}: any) => {
           </TouchableOpacity>
         </HorizontalView>
       </FastImage>
+
+      <BottomModal visible={visible} setVisible={setVisible} />
     </View>
   );
 };
