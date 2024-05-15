@@ -36,7 +36,7 @@ const Preview = ({navigation, route}: any) => {
           <FontAwesome name={'heart'} size={25} color={COLORS.white} />
         </TouchableOpacity>
       </HorizontalView>
-      <FastImage source={uri} resizeMode="cover" style={styles.img}>
+      <FastImage source={{uri: uri}} resizeMode="cover" style={styles.img}>
         <HorizontalView style={styles.innerContainer}>
           <TouchableOpacity style={styles.optionContainer}>
             <View style={styles.iconContainer}>

@@ -1,15 +1,23 @@
 import React, {memo} from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import styles from './styles';
-import {ImgsPath} from '../../assets/images/ImagesPath';
 import {COLORS} from '../../shared/theme';
 import {FontAwesome} from '../../shared/vectorIcons';
+import {navigate} from '../../navigation/rootNavigation';
 
-const WallpaperComp = (props: any) => {
+const WallpaperComp = ({item}: any) => {
+  const onWallPaperPress = () =>
+    navigate('Preview', {uri: item?.src?.original});
+
   return (
-    <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Image source={ImgsPath.exploreBackGround} style={styles.imgStyle} />
+    <TouchableOpacity style={styles.container} onPress={onWallPaperPress}>
+      <FastImage
+        source={{
+          uri: item?.src?.original,
+        }}
+        style={styles.imgStyle}></FastImage>
       <TouchableOpacity
         style={{
           ...styles.likeStyle,

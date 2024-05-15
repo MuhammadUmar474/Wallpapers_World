@@ -1,24 +1,24 @@
-import React, {useContext, useState} from 'react';
+import axios from 'axios';
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, TouchableOpacity, View} from 'react-native';
 
 import {COLORS} from '../../shared/theme';
 import {Text24} from '../../components/Text/Text';
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
+import {AppIcons} from '../../assets/data/AppIconData/AppIconData';
 import {OptionsData} from '../../assets/data/StaticData/StaticData';
 import style from './Styles';
 import Chip from '../../components/Chip/Chip';
 import WallpaperComp from '../../components/WallpaperComp/WallpaperComp';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
-import {navigate} from '../../navigation/rootNavigation';
-import {ImgsPath} from '../../assets/images/ImagesPath';
 import SearchComp from '../../components/SearchComp/SearchComp';
-import {AppIcons} from '../../assets/data/AppIconData/AppIconData';
 import AppContext from '../../context/AppContext';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
   const [searchItem, setSearchItem] = useState('');
   const [isLightMode, setIsLightMode] = useState(true);
+  const [wallPapers, setWallpapers] = useState([]);
   const {updateColor, selectedColor} = useContext(AppContext);
   const {sunIcon, moonIcon} = AppIcons();
 
@@ -33,6 +33,27 @@ const Home = () => {
 
   const onSearchSubmit = () => {};
 
+  const fetchPhotos = async (page = 1) => {
+    try {
+      const res = await axios.get(
+        `https://api.pexels.com/v1/search?query={tiger}&page=${page}&per_page=10`,
+        {
+          headers: {
+            Authorization:
+              'N6enQR1aVguXWrIzzc3X05LsdW51Yaeu8PAuAu32lns2e4aWc3nWKrYQ',
+          },
+        },
+      );
+      setWallpapers(res?.data?.photos);
+      // console.log('fetchPhotos', res?.data);
+    } catch (err) {
+      console.log('Error while getting WallPapers ==> ', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
   return (
     <View style={style.container}>
       <View
@@ -75,17 +96,10 @@ const Home = () => {
 
           <FlatList
             style={{marginTop: hp('2')}}
-            data={[{}, {}, {}, {}]}
+            data={wallPapers}
             numColumns={2}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <WallpaperComp
-                selectedItem={selectedItem}
-                onPress={() =>
-                  navigate('Preview', {uri: ImgsPath.exploreBackGround})
-                }
-              />
-            )}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => <WallpaperComp item={item} />}
           />
         </View>
       </View>
