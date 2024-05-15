@@ -9,6 +9,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  topBtnContainer: {
+    width: wp('80'),
+    top: hp(8),
+    position: 'absolute',
+    zIndex: 1,
+  },
+  backArrow: {
+    borderWidth: 1,
+    borderColor: COLORS.white,
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    left: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.transparent,
+  },
+  likeStyle: {
+    borderColor: COLORS.white,
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    right: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   img: {
     borderRadius: wp('4'),
     height: hp('90'),
@@ -18,7 +44,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     position: 'absolute',
     bottom: hp('3'),
-    width: wp('65'),
+    width: wp('50'),
   },
   optionContainer: {
     alignItems: 'center',
