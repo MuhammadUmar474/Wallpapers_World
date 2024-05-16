@@ -32,6 +32,8 @@ const Home = () => {
 
   const handleOption = (title: string) => {
     setSelectedItem(title);
+    setCurrentPage(1);
+    setWallpapers([]);
   };
 
   const loadMoreItem = () => {
@@ -41,11 +43,11 @@ const Home = () => {
 
   const onSearchSubmit = () => {};
 
-  const fetchPhotos = async (selectedItem: string) => {
+  const fetchPhotos = async (selectedItem: string, currentPage: number) => {
     console.log('selectedItem', selectedItem);
     try {
       const res = await axios.get(
-        `https://api.pexels.com/v1/search?query=${selectedItem}&page=${1}&per_page=10`,
+        `https://api.pexels.com/v1/search?query=${selectedItem}&page=${currentPage}&per_page=20`,
         {
           headers: {
             Authorization:
@@ -53,7 +55,10 @@ const Home = () => {
           },
         },
       );
-      setWallpapers(res?.data?.photos);
+      // @ts-ignore
+      setWallpapers((prevWallpapers: any[]) => {
+        return [...(prevWallpapers ?? []), ...(res?.data?.photos ?? [])];
+      });
       // console.log('fetchPhotos', res?.data);
     } catch (err) {
       console.log('Error while getting WallPapers ==> ', err);
@@ -61,8 +66,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchPhotos(selectedItem);
-  }, [selectedItem]);
+    fetchPhotos(selectedItem, currentPage);
+  }, [selectedItem, currentPage]);
   return (
     <View style={style.container}>
       <View
@@ -110,7 +115,7 @@ const Home = () => {
             numColumns={2}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => <WallpaperComp item={item} />}
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={0.4}
             onEndReached={loadMoreItem}
           />
         </View>
