@@ -1,5 +1,9 @@
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View, TouchableOpacity, Alert} from 'react-native';
+import {check, request, PERMISSIONS} from 'react-native-permissions';
+
+import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import RNFetchBlob from 'rn-fetch-blob';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
   BottomSheetModal,
@@ -15,14 +19,118 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '../../../shared/vectorIcons';
+import {isAndroid, isIOS} from '../../../utils/dimensionUtils/dimensions';
+import {os_ver, settings} from '../../../utils/platformUtils/platformCheck';
 
-const BottomModal = ({visible, setVisible}: any) => {
+const BottomModal = ({visible, setVisible, uri}: any) => {
   const snapPoints = useMemo(() => ['37%'], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  let imgUrl = uri;
+
+  let newImgUri = imgUrl.lastIndexOf('/');
+  let imageName = imgUrl.substring(newImgUri);
+
+  let dirs = RNFetchBlob.fs.dirs;
+  let path = isIOS
+    ? dirs['MainBundleDir'] + imageName
+    : dirs.PictureDir + imageName;
+
+  const handlePermissionCases = (res: string, mediaType: string) => {
+    switch (res) {
+      case 'denied':
+
+      case 'blocked':
+        settings.openSettings(mediaType);
+        break;
+
+      case 'limited':
+        settings.openSettings(mediaType);
+        break;
+
+      case 'unavailable':
+        settings.openSettings(mediaType);
+        break;
+    }
+  };
+
+  const handleGetGalleryPermission = async (flag = true) => {
+    let res = '';
+    if (flag) {
+      if (os_ver > '32') {
+        res = await check(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
+      } else {
+        res = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+      }
+
+      return handlePermissionCases(res, 'gallery');
+    } else {
+      if (os_ver > '32') {
+        res = await request(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
+      } else {
+        res = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+      }
+
+      if (res == 'granted') {
+      } else return handlePermissionCases(res, 'gallery');
+    }
+  };
+
+  // const saveToGallery = () => {
+  //   console.log('saveToGallery');
+  //   if (isAndroid) {
+  //     RNFetchBlob.config({
+  //       fileCache: true,
+  //       appendExt: 'png',
+  //       indicator: true,
+  //       IOSBackgroundTask: true,
+  //       path: path,
+  //       addAndroidDownloads: {
+  //         useDownloadManager: true,
+  //         notification: true,
+  //         path: path,
+  //         description: 'Image',
+  //       },
+  //     })
+  //       .fetch('GET', imgUrl)
+  //       .then(res => {
+  //         console.log(res, 'end downloaded');
+  //       });
+  //   } else {
+  //     CameraRoll.saveAsset(uri)
+  //       .then(() => {
+  //         console.log('saved', {type: 'photo'});
+  //       })
+  //       .catch(error => {
+  //         console.error('Error saving image to camera roll:', error);
+  //       });
+  //   }
+  // };
+
+  const handleDownload = async () => {
+    RNFetchBlob.config({
+      fileCache: true,
+      appendExt: 'png',
+    })
+      .fetch('GET', uri)
+      .then(res => {
+        CameraRoll.saveAsset(res.data)
+          .then(res => {
+            console.log('res', res);
+            Alert.alert('Image Saved To Gallery', '', [{text: 'OK'}]);
+            setVisible(false);
+          })
+          .catch(err => console.log('err', err));
+      });
+  };
 
   useEffect(() => {
     if (visible) handlePresentModalPress();
   }, [visible]);
+
+  useEffect(() => {
+    handleGetGalleryPermission();
+  }, []);
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -91,7 +199,7 @@ const BottomModal = ({visible, setVisible}: any) => {
                   </HorizontalView>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleDownload}>
                   <HorizontalView
                     style={styles.row}
                     justifyContent={'flex-start'}>

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
+
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {
   AntDesign,
@@ -7,8 +9,6 @@ import {
   FontAwesome,
   Ionicons,
 } from '../../shared/vectorIcons';
-import FastImage from 'react-native-fast-image';
-
 import {COLORS} from '../../shared/theme';
 import {Text12} from '../../components/Text/Text';
 import styles from './Styles';
@@ -63,7 +63,7 @@ const Preview = ({navigation, route}: any) => {
         </HorizontalView>
       </FastImage>
 
-      <BottomModal visible={visible} setVisible={setVisible} />
+      <BottomModal visible={visible} setVisible={setVisible} uri={uri} />
     </View>
   );
 };
