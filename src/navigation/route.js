@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
@@ -17,7 +17,6 @@ import MoreApps from '../screens/More/MoreApps/MoreApps';
 import Preview from '../screens/Preview/Preview';
 import AppContext from '../context/AppContext';
 
-
 const Tab = createMaterialBottomTabNavigator();
 
 // EXPLORE
@@ -33,47 +32,69 @@ function ExploreScreens() {
   );
 }
 
-
-
 const BottomTab = () => {
-  const {selectedColor} = useContext(AppContext)
-  return(
+  const {selectedColor} = useContext(AppContext);
+  return (
     <Tab.Navigator labeled={false} barStyle={styles.barStyle(selectedColor)}>
-    <Tab.Screen
-      name="Home"
-      component={Home}
-      options={{
-        tabBarIcon: ({color, focused}) => (
-          <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
-            <Entypo name="home" size={wp('6')} color={color} />
-          </View>
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Like"
-      component={Likes}
-      options={{
-        tabBarIcon: ({color, focused}) => (
-          <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
-            <Entypo name="heart" size={wp('6')} color={color} />
-          </View>
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="More"
-      component={More}
-      options={{
-        tabBarIcon: ({color, focused}) => (
-          <View style={[styles.tabStyle(selectedColor), !focused && styles.inactiveBg]}>
-            <Entypo name="grid" size={wp('6.5')} color={color} />
-          </View>
-        ),
-      }}
-    />
-  </Tab.Navigator>
-  )
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <View
+              style={[
+                styles.tabStyle(selectedColor),
+                !focused && styles.inactiveBg,
+              ]}>
+              <Entypo
+                name="home"
+                size={wp('6')}
+                color={focused ? color : COLORS.white}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Like"
+        component={Likes}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <View
+              style={[
+                styles.tabStyle(selectedColor),
+                !focused && styles.inactiveBg,
+              ]}>
+              <Entypo
+                name="heart"
+                size={wp('6')}
+                color={focused ? color : COLORS.white}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="More"
+        component={More}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <View
+              style={[
+                styles.tabStyle(selectedColor),
+                !focused && styles.inactiveBg,
+              ]}>
+              <Entypo
+                name="grid"
+                size={wp('6.5')}
+                color={focused ? color : COLORS.white}
+              />
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
 };
 
 // ROUTE
@@ -91,7 +112,7 @@ function Route() {
 export default Route;
 
 const styles = StyleSheet.create({
-  barStyle:(selectedColor)=>({
+  barStyle: selectedColor => ({
     height: hp('7'),
     alignItems: 'center',
     justifyContent: 'center',
@@ -101,11 +122,11 @@ const styles = StyleSheet.create({
     padding: 2,
     borderRadius: wp('20'),
     borderWidth: 1,
-    borderColor: selectedColor ? COLORS?.white  :  COLORS.borderColor,
+    borderColor: selectedColor ? COLORS?.white : COLORS.borderColor,
     overflow: 'hidden',
   }),
-  tabStyle:(selectedColor) =>({
-    backgroundColor:selectedColor ?  COLORS.white : COLORS?.selectedChip,
+  tabStyle: selectedColor => ({
+    backgroundColor: selectedColor ? COLORS.white : COLORS?.selectedChip,
     alignItems: 'center',
     justifyContent: 'center',
     width: wp('27'),
