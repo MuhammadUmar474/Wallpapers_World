@@ -1,5 +1,8 @@
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View, TouchableOpacity, Alert} from 'react-native';
+
+import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import RNFetchBlob from 'rn-fetch-blob';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
   BottomSheetModal,
@@ -15,14 +18,82 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '../../../shared/vectorIcons';
+import {isIOS} from '../../../utils/dimensionUtils/dimensions';
+import {permission} from '../../../utils/permissionUtils/permissionUtils';
 
-const BottomModal = ({visible, setVisible}: any) => {
+const BottomModal = ({visible, setVisible, uri}: any) => {
   const snapPoints = useMemo(() => ['37%'], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  let imgUrl = uri;
+
+  let newImgUri = imgUrl.lastIndexOf('/');
+  let imageName = imgUrl.substring(newImgUri);
+
+  let dirs = RNFetchBlob.fs.dirs;
+  let path = isIOS
+    ? dirs['MainBundleDir'] + imageName
+    : dirs.PictureDir + imageName;
+
+  // const saveToGallery = () => {
+  //   console.log('saveToGallery');
+  //   if (isAndroid) {
+  //     RNFetchBlob.config({
+  //       fileCache: true,
+  //       appendExt: 'png',
+  //       indicator: true,
+  //       IOSBackgroundTask: true,
+  //       path: path,
+  //       addAndroidDownloads: {
+  //         useDownloadManager: true,
+  //         notification: true,
+  //         path: path,
+  //         description: 'Image',
+  //       },
+  //     })
+  //       .fetch('GET', imgUrl)
+  //       .then(res => {
+  //         console.log(res, 'end downloaded');
+  //       });
+  //   } else {
+  //     CameraRoll.saveAsset(uri)
+  //       .then(() => {
+  //         console.log('saved', {type: 'photo'});
+  //       })
+  //       .catch(error => {
+  //         console.error('Error saving image to camera roll:', error);
+  //       });
+  //   }
+  // };
+
+  const handleDownload = async () => {
+    RNFetchBlob.config({
+      fileCache: true,
+      appendExt: 'png',
+    })
+      .fetch('GET', uri)
+      .then(res => {
+        CameraRoll.saveAsset(res.data)
+          .then(res => {
+            console.log('res', res);
+            Alert.alert('Image Saved To Gallery', '', [{text: 'OK'}]);
+            setVisible(false);
+          })
+          .catch(err => console.log('err', err));
+      });
+  };
 
   useEffect(() => {
     if (visible) handlePresentModalPress();
   }, [visible]);
+
+  useEffect(() => {
+    permission.handleGalleryPermission(true, callback);
+  }, []);
+
+  const callback = () => {
+    console.log('callback ran');
+  };
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -91,7 +162,7 @@ const BottomModal = ({visible, setVisible}: any) => {
                   </HorizontalView>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleDownload}>
                   <HorizontalView
                     style={styles.row}
                     justifyContent={'flex-start'}>
