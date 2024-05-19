@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {View, TouchableOpacity, Alert} from 'react-native';
-import {check, request, PERMISSIONS} from 'react-native-permissions';
 
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -19,8 +18,8 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '../../../shared/vectorIcons';
-import {isAndroid, isIOS} from '../../../utils/dimensionUtils/dimensions';
-import {os_ver, settings} from '../../../utils/platformUtils/platformCheck';
+import {isIOS} from '../../../utils/dimensionUtils/dimensions';
+import {permission} from '../../../utils/permissionUtils/permissionUtils';
 
 const BottomModal = ({visible, setVisible, uri}: any) => {
   const snapPoints = useMemo(() => ['37%'], []);
@@ -35,46 +34,6 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
   let path = isIOS
     ? dirs['MainBundleDir'] + imageName
     : dirs.PictureDir + imageName;
-
-  const handlePermissionCases = (res: string, mediaType: string) => {
-    switch (res) {
-      case 'denied':
-
-      case 'blocked':
-        settings.openSettings(mediaType);
-        break;
-
-      case 'limited':
-        settings.openSettings(mediaType);
-        break;
-
-      case 'unavailable':
-        settings.openSettings(mediaType);
-        break;
-    }
-  };
-
-  const handleGetGalleryPermission = async (flag = true) => {
-    let res = '';
-    if (flag) {
-      if (os_ver > '32') {
-        res = await check(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
-      } else {
-        res = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
-      }
-
-      return handlePermissionCases(res, 'gallery');
-    } else {
-      if (os_ver > '32') {
-        res = await request(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
-      } else {
-        res = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
-      }
-
-      if (res == 'granted') {
-      } else return handlePermissionCases(res, 'gallery');
-    }
-  };
 
   // const saveToGallery = () => {
   //   console.log('saveToGallery');
@@ -129,8 +88,12 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
   }, [visible]);
 
   useEffect(() => {
-    handleGetGalleryPermission();
+    permission.handleGalleryPermission(true, callback);
   }, []);
+
+  const callback = () => {
+    console.log('callback ran');
+  };
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
