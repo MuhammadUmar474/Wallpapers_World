@@ -49,7 +49,7 @@ const BottomTab = () => {
               <Entypo
                 name="home"
                 size={wp('6')}
-                color={focused ? color : COLORS.white}
+                color={focused ? color : COLORS.gray}
               />
             </View>
           ),
@@ -68,7 +68,7 @@ const BottomTab = () => {
               <Entypo
                 name="heart"
                 size={wp('6')}
-                color={focused ? color : COLORS.white}
+                color={focused ? color : COLORS.gray}
               />
             </View>
           ),
@@ -87,7 +87,7 @@ const BottomTab = () => {
               <Entypo
                 name="grid"
                 size={wp('6.5')}
-                color={focused ? color : COLORS.white}
+                color={focused ? color : COLORS.gray}
               />
             </View>
           ),
