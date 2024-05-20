@@ -1,4 +1,10 @@
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import {View, TouchableOpacity, Alert} from 'react-native';
 
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
@@ -20,10 +26,22 @@ import {
 } from '../../../shared/vectorIcons';
 import {isIOS} from '../../../utils/dimensionUtils/dimensions';
 import {permission} from '../../../utils/permissionUtils/permissionUtils';
+import AppContext from '../../../context/AppContext';
 
-const BottomModal = ({visible, setVisible, uri}: any) => {
+interface BottomModalProps {
+  visible: boolean;
+  uri: string;
+  setVisible: (visible: boolean) => void;
+}
+
+const BottomModal: React.FC<BottomModalProps> = ({
+  visible,
+  setVisible,
+  uri,
+}) => {
   const snapPoints = useMemo(() => ['37%'], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const {selectedColor} = useContext(AppContext);
 
   let imgUrl = uri;
 
@@ -108,14 +126,14 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
       <GestureHandlerRootView style={{flex: 1}}>
         <BottomSheetModalProvider>
           <BottomSheetModal
-            backgroundStyle={styles.modalContainer}
+            backgroundStyle={styles.modalContainer(selectedColor)}
             handleIndicatorStyle={{backgroundColor: COLORS.borderColor}}
             ref={bottomSheetModalRef}
             index={0}
             snapPoints={snapPoints}
             onChange={handleSheetChanges}>
             <BottomSheetView style={styles.contentContainer}>
-              <Text16 textStyle={styles.heading}>
+              <Text16 textStyle={styles.heading(selectedColor)}>
                 What would you like to do?
               </Text16>
 
@@ -128,9 +146,11 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
                       style={styles.icon}
                       name="cellphone"
                       size={20}
-                      color={COLORS.black}
+                      color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14>Set on home screen</Text14>
+                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                      Set on home screen
+                    </Text14>
                   </HorizontalView>
                 </TouchableOpacity>
 
@@ -142,9 +162,11 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
                       style={styles.icon}
                       name="screen-lock-portrait"
                       size={20}
-                      color={COLORS.black}
+                      color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14>Set on lock screen</Text14>
+                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                      Set on lock screen
+                    </Text14>
                   </HorizontalView>
                 </TouchableOpacity>
 
@@ -156,9 +178,11 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
                       style={styles.icon}
                       name="cellphone-lock"
                       size={20}
-                      color={COLORS.black}
+                      color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14>Set on both screen</Text14>
+                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                      Set on both screen
+                    </Text14>
                   </HorizontalView>
                 </TouchableOpacity>
 
@@ -170,9 +194,11 @@ const BottomModal = ({visible, setVisible, uri}: any) => {
                       style={styles.icon}
                       name="download"
                       size={20}
-                      color={COLORS.black}
+                      color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14>Save to device</Text14>
+                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                      Save to device
+                    </Text14>
                   </HorizontalView>
                 </TouchableOpacity>
               </View>
