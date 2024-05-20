@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, TouchableOpacity, View} from 'react-native';
 
 import {COLORS} from '../../shared/theme';
-import {Text24} from '../../components/Text/Text';
+import {Text15, Text24} from '../../components/Text/Text';
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {AppIcons} from '../../assets/data/AppIconData/AppIconData';
 import {OptionsData} from '../../assets/data/StaticData/StaticData';
@@ -20,6 +20,8 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   console.log('currentPage', currentPage);
   const [searchItem, setSearchItem] = useState('');
+  const [searchImgs , setSearchImages] = useState([])
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isLightMode, setIsLightMode] = useState(true);
   const [wallPapers, setWallpapers] = useState([]);
   const {updateColor, selectedColor} = useContext(AppContext);
@@ -34,6 +36,9 @@ const Home = () => {
     setSelectedItem(title);
     setCurrentPage(1);
     setWallpapers([]);
+    setSearchImages([])
+    setSearchItem('')
+    setIsSearchBarOpen(false)
   };
 
   const loadMoreItem = () => {
@@ -41,7 +46,13 @@ const Home = () => {
     // setPagination(true);
   };
 
-  const onSearchSubmit = () => {};
+  const onSearchSubmit = () => {
+    
+   // @ts-ignore
+   const filteredData = wallPapers?.filter(item => item?.alt?.toLowerCase()?.includes(searchItem?.toLowerCase()))
+    setSearchImages(filteredData)
+    setIsSearchBarOpen(true)
+  };
 
   const fetchPhotos = async (selectedItem: string, currentPage: number) => {
     console.log('selectedItem', selectedItem);
@@ -109,15 +120,21 @@ const Home = () => {
           />
         </View>
         <View style={{marginHorizontal: wp('4')}}>
+        {(isSearchBarOpen && searchImgs?.length < 1) ? (
+          <Text15 textStyle={{alignSelf: 'center', marginTop: hp('5')}}>
+            No Data Found
+          </Text15>
+        ) : (
           <FlatList
             style={{marginTop: hp('2')}}
-            data={wallPapers}
+            data={searchImgs?.length > 0 ? searchImgs : wallPapers}
             numColumns={2}
+            ListEmptyComponent={<Text15 textStyle={{textAlign:'center'}}>No Data Found</Text15>}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => <WallpaperComp item={item} />}
             onEndReachedThreshold={0.4}
             onEndReached={loadMoreItem}
-          />
+          />)}
         </View>
       </View>
     </View>
