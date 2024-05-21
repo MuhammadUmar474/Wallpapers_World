@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Share, Alert} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
@@ -25,6 +25,16 @@ const Preview = ({navigation, route}: any) => {
     navigation.goBack();
   };
 
+  const onShareBtnPress = async () => {
+      try {
+        await Share.share({
+          message: uri,
+        });
+      } catch (error:any) {
+        Alert.alert(error.message);
+      }
+  }
+
   return (
     <View style={styles.container}>
       <HorizontalView style={styles.topBtnContainer}>
@@ -43,7 +53,7 @@ const Preview = ({navigation, route}: any) => {
       </HorizontalView>
       <FastImage source={{uri: uri}} resizeMode="cover" style={styles.img}>
         <HorizontalView style={styles.innerContainer}>
-          <TouchableOpacity style={styles.optionContainer}>
+          <TouchableOpacity style={styles.optionContainer} onPress={onShareBtnPress}>
             <View style={styles.iconContainer}>
               <AntDesign name="sharealt" size={wp('7')} color={COLORS.white} />
             </View>
