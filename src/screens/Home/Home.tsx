@@ -20,8 +20,6 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   console.log('currentPage', currentPage);
   const [searchItem, setSearchItem] = useState('');
-  const [searchImgs , setSearchImages] = useState([])
-  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isLightMode, setIsLightMode] = useState(true);
   const [wallPapers, setWallpapers] = useState([]);
   const {updateColor, selectedColor} = useContext(AppContext);
@@ -36,9 +34,7 @@ const Home = () => {
     setSelectedItem(title);
     setCurrentPage(1);
     setWallpapers([]);
-    setSearchImages([])
     setSearchItem('')
-    setIsSearchBarOpen(false)
   };
 
   const loadMoreItem = () => {
@@ -47,11 +43,8 @@ const Home = () => {
   };
 
   const onSearchSubmit = () => {
-    
-   // @ts-ignore
-   const filteredData = wallPapers?.filter(item => item?.alt?.toLowerCase()?.includes(searchItem?.toLowerCase()))
-    setSearchImages(filteredData)
-    setIsSearchBarOpen(true)
+    setWallpapers([])
+    fetchPhotos(searchItem,currentPage)
   };
 
   const fetchPhotos = async (selectedItem: string, currentPage: number) => {
@@ -120,21 +113,17 @@ const Home = () => {
           />
         </View>
         <View style={{marginHorizontal: wp('4')}}>
-        {(isSearchBarOpen && searchImgs?.length < 1) ? (
-          <Text15 textStyle={{alignSelf: 'center', marginTop: hp('5')}}>
-            No Data Found
-          </Text15>
-        ) : (
+     
           <FlatList
             style={{marginTop: hp('2')}}
-            data={searchImgs?.length > 0 ? searchImgs : wallPapers}
+            data={wallPapers}
             numColumns={2}
             ListEmptyComponent={<Text15 textStyle={{textAlign:'center'}}>No Data Found</Text15>}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => <WallpaperComp item={item} />}
             onEndReachedThreshold={0.4}
             onEndReached={loadMoreItem}
-          />)}
+          />
         </View>
       </View>
     </View>
