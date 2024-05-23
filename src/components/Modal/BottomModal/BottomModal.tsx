@@ -6,6 +6,8 @@ import React, {
   useRef,
 } from 'react';
 import {View, TouchableOpacity, Alert} from 'react-native';
+// @ts-ignore
+import ManageWallpaper, {TYPE} from 'react-native-manage-wallpaper';
 
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -42,6 +44,18 @@ const BottomModal: React.FC<BottomModalProps> = ({
   const snapPoints = useMemo(() => ['37%'], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const {selectedColor} = useContext(AppContext);
+
+  const setWallpaper = (type: string) => {
+    ManageWallpaper.setWallpaper(
+      {
+        uri: uri,
+      },
+      () => {
+        console.log('success');
+      },
+      type === 'home' ? TYPE.HOME : type === 'lock' ? TYPE.LOCK : TYPE.BOTH,
+    );
+  };
 
   let imgUrl = uri;
 
@@ -148,7 +162,9 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       size={20}
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                    <Text14
+                      textStyle={{color: selectedColor && COLORS?.white}}
+                      onPress={() => setWallpaper('home')}>
                       Set on home screen
                     </Text14>
                   </HorizontalView>
@@ -164,7 +180,9 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       size={20}
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                    <Text14
+                      textStyle={{color: selectedColor && COLORS?.white}}
+                      onPress={() => setWallpaper('lock')}>
                       Set on lock screen
                     </Text14>
                   </HorizontalView>
@@ -180,7 +198,9 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       size={20}
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                    <Text14
+                      textStyle={{color: selectedColor && COLORS?.white}}
+                      onPress={() => setWallpaper('both')}>
                       Set on both screen
                     </Text14>
                   </HorizontalView>
