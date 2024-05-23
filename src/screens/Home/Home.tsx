@@ -18,7 +18,6 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log('currentPage', currentPage);
   const [searchItem, setSearchItem] = useState('');
   const [isLightMode, setIsLightMode] = useState(true);
   const [wallPapers, setWallpapers] = useState([]);
@@ -34,7 +33,7 @@ const Home = () => {
     setSelectedItem(title);
     setCurrentPage(1);
     setWallpapers([]);
-    setSearchItem('')
+    setSearchItem('');
   };
 
   const loadMoreItem = () => {
@@ -43,8 +42,12 @@ const Home = () => {
   };
 
   const onSearchSubmit = () => {
-    setWallpapers([])
-    fetchPhotos(searchItem,currentPage)
+    setWallpapers([]);
+    setCurrentPage(1);
+    fetchPhotos(
+      searchItem?.length > 0 ? searchItem : selectedItem,
+      currentPage,
+    );
   };
 
   const fetchPhotos = async (selectedItem: string, currentPage: number) => {
@@ -113,12 +116,13 @@ const Home = () => {
           />
         </View>
         <View style={{marginHorizontal: wp('4')}}>
-     
           <FlatList
             style={{marginTop: hp('2')}}
             data={wallPapers}
             numColumns={2}
-            ListEmptyComponent={<Text15 textStyle={{textAlign:'center'}}>No Data Found</Text15>}
+            ListEmptyComponent={
+              <Text15 textStyle={{textAlign: 'center'}}>No Data Found</Text15>
+            }
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => <WallpaperComp item={item} />}
             onEndReachedThreshold={0.4}
