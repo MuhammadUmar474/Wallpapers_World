@@ -13,6 +13,8 @@ import WallpaperComp from '../../components/WallpaperComp/WallpaperComp';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
 import SearchComp from '../../components/SearchComp/SearchComp';
 import AppContext from '../../context/AppContext';
+import Loader from '../../components/Loader/Loader';
+import EmptyComp from '../../components/EmptyComp/EmptyComp';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
@@ -42,6 +44,7 @@ const Home = () => {
   };
 
   const onSearchSubmit = () => {
+    setIsLoading(true)
     setWallpapers([]);
     setCurrentPage(1);
     fetchPhotos(
@@ -65,6 +68,7 @@ const Home = () => {
       setWallpapers((prevWallpapers: any[]) => {
         return [...(prevWallpapers ?? []), ...(res?.data?.photos ?? [])];
       });
+      setIsLoading(false);
       // console.log('fetchPhotos', res?.data);
     } catch (err) {
       console.log('Error while getting WallPapers ==> ', err);
@@ -72,6 +76,9 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (selectedItem != 'Recents') {
+      setIsLoading(true);
+    }
     fetchPhotos(selectedItem, currentPage);
   }, [selectedItem, currentPage]);
   return (
@@ -115,18 +122,22 @@ const Home = () => {
           />
         </View>
         <View style={{marginHorizontal: wp('4')}}>
-          <FlatList
+          {isLoading ? (
+            <Loader />
+          ) : (
+           wallPapers?.length > 0 ?
+            <FlatList
             style={{marginTop: hp('2')}}
             data={wallPapers}
             numColumns={2}
-            ListEmptyComponent={
-              <Text15 textStyle={{textAlign: 'center'}}>No Data Found</Text15>
-            }
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => <WallpaperComp item={item} />}
             onEndReachedThreshold={0.4}
             onEndReached={loadMoreItem}
           />
+           :
+           <EmptyComp />
+          )}
         </View>
       </View>
     </View>
