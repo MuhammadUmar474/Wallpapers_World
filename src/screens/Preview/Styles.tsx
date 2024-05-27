@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   img: {
     borderRadius: wp('4'),
-    height: hp('90'),
+    height: hp('100'),
     width: wp('100'),
     alignItems: 'center',
   },

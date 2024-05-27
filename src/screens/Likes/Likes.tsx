@@ -12,6 +12,7 @@ import AppContext from '../../context/AppContext';
 import { getItemFromAsyncStorage, saveItemInAsyncStorage } from '../../utils/storage/asyncStorage';
 import { FontAwesome } from '../../shared/vectorIcons';
 import { navigate } from '../../navigation/rootNavigation';
+import EmptyComp from '../../components/EmptyComp/EmptyComp';
 
 interface LikedItem {
   id: string;
@@ -89,10 +90,10 @@ const Likes: React.FC = () => {
                 color: selectedColor ? COLORS.white : COLORS.background,
               }}
             >
-              HD Wallpapers
+              Liked Wallpapers
             </Text24>
           </HorizontalView>
-          <FlatList
+          {likedItems?.length > 0 ? <FlatList
             style={{ marginTop: hp('2') }}
             data={likedItems}
             numColumns={2}
@@ -100,7 +101,8 @@ const Likes: React.FC = () => {
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             onEndReachedThreshold={0.4}
-          />
+          /> : <EmptyComp />
+          }
         </View>
       </View>
     </View>

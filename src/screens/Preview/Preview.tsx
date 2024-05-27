@@ -41,15 +41,6 @@ const Preview = ({navigation, route}: any) => {
         <TouchableOpacity style={styles.backArrow} onPress={onBackPress}>
           <Ionicons name={'arrow-back'} size={30} color={COLORS.white} />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            ...styles.likeStyle,
-            backgroundColor: false ? COLORS.red : COLORS.transparent,
-            borderWidth: false ? 0 : 1,
-          }}>
-          <FontAwesome name={'heart'} size={25} color={COLORS.white} />
-        </TouchableOpacity>
       </HorizontalView>
       <FastImage source={{uri: uri}} resizeMode="cover" style={styles.img}>
         <HorizontalView style={styles.innerContainer}>
