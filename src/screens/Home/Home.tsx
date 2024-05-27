@@ -51,7 +51,6 @@ const Home = () => {
   };
 
   const fetchPhotos = async (selectedItem: string, currentPage: number) => {
-    console.log('selectedItem', selectedItem);
     try {
       const res = await axios.get(
         `https://api.pexels.com/v1/search?query=${selectedItem}&page=${currentPage}&per_page=20`,
