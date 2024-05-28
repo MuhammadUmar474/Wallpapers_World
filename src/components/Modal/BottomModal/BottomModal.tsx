@@ -28,6 +28,7 @@ import {
 } from '../../../shared/vectorIcons';
 import {isIOS} from '../../../utils/dimensionUtils/dimensions';
 import {permission} from '../../../utils/permissionUtils/permissionUtils';
+import {showToast} from '../../Toast/Toast';
 import AppContext from '../../../context/AppContext';
 
 interface BottomModalProps {
@@ -51,7 +52,8 @@ const BottomModal: React.FC<BottomModalProps> = ({
         uri: uri,
       },
       () => {
-        console.log('success');
+        showToast('Wallpaper Updated');
+        setVisible(false);
       },
       type === 'home' ? TYPE.HOME : type === 'lock' ? TYPE.LOCK : TYPE.BOTH,
     );
@@ -107,8 +109,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
       .then(res => {
         CameraRoll.saveAsset(res.data)
           .then(res => {
-            console.log('res', res);
-            Alert.alert('Image Saved To Gallery', '', [{text: 'OK'}]);
+            showToast('Downloaded');
             setVisible(false);
           })
           .catch(err => console.log('err', err));
