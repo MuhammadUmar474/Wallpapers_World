@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "962355622804",
+    "project_id": "wallpapers-world-6f1db",
+    "storage_bucket": "wallpapers-world-6f1db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962355622804:android:db4366318a634f45141581",
+        "android_client_info": {
+          "package_name": "com.wallpapers_world"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLCL_VOcLloWiKWqb81jkzUOc_8uSUMXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

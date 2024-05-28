@@ -1,7 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {firebase} from '@react-native-firebase/analytics';
 
 import {StatusBarComp} from '../components/StatusBar/StatusBar';
 import Explore from '../screens/Explore/Explore';
@@ -99,8 +100,36 @@ const BottomTab = () => {
 
 // ROUTE
 function Route() {
+  const routeNameRef = useRef(null);
+
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  const initAnalytics = async () => {
+    await firebase.analytics().setAnalyticsCollectionEnabled(true);
+  };
+
+  const onStateChange = async () => {
+    const previousRouteName = routeNameRef.current;
+    const currentRouteName = navigationRef.current?.getCurrentRoute()?.name;
+
+    if (previousRouteName !== currentRouteName) {
+      await firebase.analytics().logScreenView({
+        screen_name: currentRouteName,
+        screen_class: currentRouteName,
+      });
+      routeNameRef.current = currentRouteName;
+    }
+  };
+
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer
+      ref={navigationRef}
+      onStateChange={onStateChange}
+      onReady={() => {
+        routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name;
+      }}>
       <>
         <StatusBarComp />
         <ExploreScreens />
