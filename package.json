@@ -8,8 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "android:build:debug": "cd android && ./gradlew assembleDebug",
-    "android:build:release": "cd android && ./gradlew assembleRelease"
+    "android:build:debug": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug",
+    "android:build:release": "cd android && ./gradlew assembleRelease",
+    "android:build:aab": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4",
