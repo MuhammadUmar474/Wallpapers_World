@@ -16,6 +16,9 @@ import AppContext from '../../context/AppContext';
 import Loader from '../../components/Loader/Loader';
 import EmptyComp from '../../components/EmptyComp/EmptyComp';
 
+// android app open ad id : ca-app-pub-2587642180140061/4310559647
+// ios app open ad id : ca-app-pub-2587642180140061/9699699261
+
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +47,7 @@ const Home = () => {
   };
 
   const onSearchSubmit = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     setWallpapers([]);
     setCurrentPage(1);
     fetchPhotos(
@@ -124,19 +127,18 @@ const Home = () => {
         <View style={{marginHorizontal: wp('4')}}>
           {isLoading ? (
             <Loader />
-          ) : (
-           wallPapers?.length > 0 ?
+          ) : wallPapers?.length > 0 ? (
             <FlatList
-            style={{marginTop: hp('2')}}
-            data={wallPapers}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => <WallpaperComp item={item} />}
-            onEndReachedThreshold={0.4}
-            onEndReached={loadMoreItem}
-          />
-           :
-           <EmptyComp />
+              style={{marginTop: hp('2')}}
+              data={wallPapers}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => <WallpaperComp item={item} />}
+              onEndReachedThreshold={0.4}
+              onEndReached={loadMoreItem}
+            />
+          ) : (
+            <EmptyComp />
           )}
         </View>
       </View>
