@@ -79,8 +79,12 @@ const Home = () => {
     if (selectedItem != 'Recents') {
       setIsLoading(true);
     }
+  }, [selectedItem]);
+
+  useEffect(() => {
     fetchPhotos(selectedItem, currentPage);
   }, [selectedItem, currentPage]);
+
   return (
     <View style={style.container}>
       <View
@@ -124,19 +128,18 @@ const Home = () => {
         <View style={{marginHorizontal: wp('4')}}>
           {isLoading ? (
             <Loader />
-          ) : (
-           wallPapers?.length > 0 ?
+          ) : wallPapers?.length > 0 ? (
             <FlatList
-            style={{marginTop: hp('2')}}
-            data={wallPapers}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => <WallpaperComp item={item} />}
-            onEndReachedThreshold={0.4}
-            onEndReached={loadMoreItem}
-          />
-           :
-           <EmptyComp />
+              style={{marginTop: hp('2')}}
+              data={wallPapers}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => <WallpaperComp item={item} />}
+              onEndReachedThreshold={0.4}
+              onEndReached={loadMoreItem}
+            />
+          ) : (
+            <EmptyComp />
           )}
         </View>
       </View>
