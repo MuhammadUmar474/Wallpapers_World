@@ -16,6 +16,9 @@ import AppContext from '../../context/AppContext';
 import Loader from '../../components/Loader/Loader';
 import EmptyComp from '../../components/EmptyComp/EmptyComp';
 
+// android app open ad id : ca-app-pub-2587642180140061/4310559647
+// ios app open ad id : ca-app-pub-2587642180140061/9699699261
+
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState<string>('Recents');
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +47,7 @@ const Home = () => {
   };
 
   const onSearchSubmit = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     setWallpapers([]);
     setCurrentPage(1);
     fetchPhotos(
