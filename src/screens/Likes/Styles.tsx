@@ -32,6 +32,7 @@ const style = StyleSheet.create({
     right: 10,
     alignSelf: 'flex-end',
   },
+  list:{marginTop: hp('2'),marginBottom:hp('6')}
 });
 
 export default style;

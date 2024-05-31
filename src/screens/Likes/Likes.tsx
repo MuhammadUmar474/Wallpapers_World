@@ -102,9 +102,9 @@ const Likes: React.FC = () => {
               Liked Wallpapers
             </Text24>
           </HorizontalView>
-          {likedItems?.length > 0 ? (
+        {likedItems?.length > 0 ? (
             <FlatList
-              style={{marginTop: hp('2')}}
+              style={style.list}
               data={likedItems}
               numColumns={2}
               showsVerticalScrollIndicator={false}
