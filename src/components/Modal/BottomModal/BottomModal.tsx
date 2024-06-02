@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import {View, TouchableOpacity, Alert} from 'react-native';
+import {View, TouchableOpacity, BackHandler} from 'react-native';
 // @ts-ignore
 import ManageWallpaper, {TYPE} from 'react-native-manage-wallpaper';
 
@@ -54,6 +54,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
       () => {
         showToast('Wallpaper Updated');
         setVisible(false);
+        BackHandler.exitApp();
       },
       type === 'home' ? TYPE.HOME : type === 'lock' ? TYPE.LOCK : TYPE.BOTH,
     );
