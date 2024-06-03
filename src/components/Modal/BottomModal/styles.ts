@@ -16,16 +16,13 @@ interface Styles {
 const styles: Styles = StyleSheet.create<Styles>({
   bottomModalWrapper: {
     width: '100%',
-    alignSelf: 'center',
     position: 'absolute',
     height: '100%',
     bottom: 0,
   },
   container: {
     flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-    backgroundColor: 'grey',
+    bottom: 40,
   },
   modalContainer: (selectedColor)=>({
     borderTopLeftRadius: 35,
@@ -36,6 +33,7 @@ const styles: Styles = StyleSheet.create<Styles>({
     flex: 1,
   },
   heading:(selectedColor)=>({
+    marginTop: hp('1'),
     color:!selectedColor?  COLORS.black : COLORS?.white,
     fontFamily: 'Poppins-SemiBold',
     textAlign: 'center',
