@@ -7,16 +7,7 @@ const BannerAdComponent = () => {
   return (
     <BannerAd
       unitId={bannerAdId}
-      size={BannerAdSize.BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-      onAdLoaded={() => {
-        console.log('Banner Ad loaded');
-      }}
-      onAdFailedToLoad={error => {
-        console.error('Banner Ad failed to load:', error);
-      }}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
     />
   );
 };

@@ -26,9 +26,9 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '../../../shared/vectorIcons';
-import {isIOS} from '../../../utils/dimensionUtils/dimensions';
 import {permission} from '../../../utils/permissionUtils/permissionUtils';
 import {showToast} from '../../Toast/Toast';
+import BannerAdComponent from '../../BannerAd';
 import AppContext from '../../../context/AppContext';
 
 interface BottomModalProps {
@@ -59,47 +59,6 @@ const BottomModal: React.FC<BottomModalProps> = ({
       type === 'home' ? TYPE.HOME : type === 'lock' ? TYPE.LOCK : TYPE.BOTH,
     );
   };
-
-  let imgUrl = uri;
-
-  let newImgUri = imgUrl.lastIndexOf('/');
-  let imageName = imgUrl.substring(newImgUri);
-
-  let dirs = RNFetchBlob.fs.dirs;
-  let path = isIOS
-    ? dirs['MainBundleDir'] + imageName
-    : dirs.PictureDir + imageName;
-
-  // const saveToGallery = () => {
-  //   console.log('saveToGallery');
-  //   if (isAndroid) {
-  //     RNFetchBlob.config({
-  //       fileCache: true,
-  //       appendExt: 'png',
-  //       indicator: true,
-  //       IOSBackgroundTask: true,
-  //       path: path,
-  //       addAndroidDownloads: {
-  //         useDownloadManager: true,
-  //         notification: true,
-  //         path: path,
-  //         description: 'Image',
-  //       },
-  //     })
-  //       .fetch('GET', imgUrl)
-  //       .then(res => {
-  //         console.log(res, 'end downloaded');
-  //       });
-  //   } else {
-  //     CameraRoll.saveAsset(uri)
-  //       .then(() => {
-  //         console.log('saved', {type: 'photo'});
-  //       })
-  //       .catch(error => {
-  //         console.error('Error saving image to camera roll:', error);
-  //       });
-  //   }
-  // };
 
   const handleDownload = async () => {
     RNFetchBlob.config({
@@ -149,6 +108,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
             snapPoints={snapPoints}
             onChange={handleSheetChanges}>
             <BottomSheetView style={styles.contentContainer}>
+              <BannerAdComponent />
               <Text16 textStyle={styles.heading(selectedColor)}>
                 What would you like to do?
               </Text16>
