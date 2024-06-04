@@ -125,7 +125,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
                     <Text14
-                      textStyle={{color: selectedColor && COLORS?.white}}
+                      textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}
                       onPress={() => setWallpaper('home')}>
                       Set on home screen
                     </Text14>
@@ -143,7 +143,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
                     <Text14
-                      textStyle={{color: selectedColor && COLORS?.white}}
+                      textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}
                       onPress={() => setWallpaper('lock')}>
                       Set on lock screen
                     </Text14>
@@ -161,7 +161,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
                     <Text14
-                      textStyle={{color: selectedColor && COLORS?.white}}
+                      textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}
                       onPress={() => setWallpaper('both')}>
                       Set on both screen
                     </Text14>
@@ -178,7 +178,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       size={20}
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14 textStyle={{color: selectedColor && COLORS?.white}}>
+                    <Text14 textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}>
                       Save to device
                     </Text14>
                   </HorizontalView>
