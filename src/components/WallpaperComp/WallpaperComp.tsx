@@ -1,11 +1,16 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {useFocusEffect} from '@react-navigation/native';
+import {
+  RewardedAd,
+  RewardedAdEventType,
+  TestIds,
+} from 'react-native-google-mobile-ads';
 
 import styles from './styles';
 import {COLORS} from '../../shared/theme';
-import {FontAwesome} from '../../shared/vectorIcons';
+import {Feather, FontAwesome} from '../../shared/vectorIcons';
 import {navigate} from '../../navigation/rootNavigation';
 import {
   getItemFromAsyncStorage,
@@ -25,8 +30,42 @@ interface WallpaperCompProps {
   item: WallpaperItem;
 }
 
+const rewardAdId = TestIds.REWARDED;
+
+const rewarded = RewardedAd.createForAdRequest(rewardAdId);
+
 const WallpaperComp: React.FC<WallpaperCompProps> = ({item}) => {
   const [liked, setLiked] = useState(false);
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(
+      RewardedAdEventType.LOADED,
+      () => {
+        setLoaded(true);
+      },
+    );
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      () => {
+        navigate('Preview', {uri: item?.src?.original});
+      },
+    );
+    rewarded.load();
+
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+  }, []);
+
+  const onRewardPress = () => {
+    if (loaded) {
+      rewarded.show();
+      setLoaded(false);
+    }
+  };
 
   const onWallPaperPress = () =>
     navigate('Preview', {uri: item?.src?.original});
@@ -81,6 +120,20 @@ const WallpaperComp: React.FC<WallpaperCompProps> = ({item}) => {
         }}
         style={styles.imgStyle}
       />
+      {!loaded ? null : (
+        <TouchableOpacity
+          onPress={onRewardPress}
+          style={{
+            ...styles.rewardStyle,
+          }}>
+          <Feather
+            name={'gift'}
+            size={25}
+            color={liked ? COLORS.red : COLORS.white}
+          />
+        </TouchableOpacity>
+      )}
+
       <TouchableOpacity
         onPress={() => likeIconPress(item)}
         style={{

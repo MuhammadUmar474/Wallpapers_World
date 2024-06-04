@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
     width: wp('44'),
     borderRadius: 24,
   },
+  rewardStyle: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    alignSelf: 'flex-end',
+  },
   likeStyle: {
     borderColor: COLORS.white,
     height: 40,
