@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   topBtnContainer: {
-    width: wp('80'),
+    width: wp('90'),
     top: hp(8),
     position: 'absolute',
     zIndex: 1,
