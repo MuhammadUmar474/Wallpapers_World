@@ -137,7 +137,9 @@ const Home = () => {
               data={wallPapers}
               numColumns={2}
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => <WallpaperComp item={item} />}
+              renderItem={({item, index}) => (
+                <WallpaperComp item={item} index={index} />
+              )}
               onEndReachedThreshold={0.4}
               onEndReached={loadMoreItem}
             />

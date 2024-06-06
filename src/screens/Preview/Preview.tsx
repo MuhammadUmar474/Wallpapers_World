@@ -10,10 +10,12 @@ import styles from './Styles';
 import Spacer from '../../components/Spacer/Spacer';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
 import BottomModal from '../../components/Modal/BottomModal/BottomModal';
+import Loader from '../../components/Loader/Loader';
 
 const Preview = ({navigation, route}: any) => {
   const uri = route.params?.uri;
 
+  const [loader, setLoader] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
 
   const onBackPress = () => {
@@ -37,7 +39,15 @@ const Preview = ({navigation, route}: any) => {
           <Ionicons name={'arrow-back'} size={30} color={COLORS.white} />
         </TouchableOpacity>
       </HorizontalView>
-      <FastImage source={{uri: uri}} resizeMode="stretch" style={styles.img}>
+
+      {loader && <Loader style={styles.loader} color />}
+
+      <FastImage
+        onLoad={() => setLoader(true)}
+        onLoadEnd={() => setLoader(false)}
+        source={{uri: uri}}
+        resizeMode="stretch"
+        style={styles.img}>
         <HorizontalView style={styles.innerContainer}>
           <TouchableOpacity
             style={styles.optionContainer}
