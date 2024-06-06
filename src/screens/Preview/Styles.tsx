@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   topBtnContainer: {
     width: wp('90'),
-    top: hp(8),
+    top: hp('5'),
     position: 'absolute',
     zIndex: 1,
   },
