@@ -1,5 +1,5 @@
 import {Alert, Linking} from 'react-native';
-import {isIOS} from '../dimensionUtils/dimensions';
+import {W_HEIGHT, isIOS, isAndroid} from '../dimensionUtils/dimensions';
 
 export const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -37,4 +37,18 @@ export const settings = {
   },
 
   openEmail: (email: string) => Linking.openURL(`mailto:${email}`),
+};
+
+export const calculations = {
+  screenRatio: () => {
+    if (isAndroid && W_HEIGHT < 800) {
+      let ratio = parseFloat(
+        ((W_HEIGHT * 0.001) / 2 + 0.16).toString(),
+      ).toFixed(2);
+      return ratio;
+    } else if (isAndroid && W_HEIGHT >= 800) {
+      let ratio = (W_HEIGHT * 0.001) / 2 + 0.11;
+      return ratio;
+    }
+  },
 };

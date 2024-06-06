@@ -86,10 +86,6 @@ const BottomModal: React.FC<BottomModalProps> = ({
     if (visible) handlePresentModalPress();
   }, [visible]);
 
-  useEffect(() => {
-    permission.handleGalleryPermission(true, callback);
-  }, []);
-
   const callback = () => {
     console.log('callback ran');
   };

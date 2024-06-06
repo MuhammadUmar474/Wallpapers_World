@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {COLORS} from '../../shared/theme';
+import {calculations} from '../../utils/helperUtils/helperUtils';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,9 +37,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    borderRadius: wp('4'),
-    height: hp('100'),
+    height: undefined,
     width: wp('100'),
+    aspectRatio: calculations.screenRatio(),
     alignItems: 'center',
   },
   innerContainer: {
