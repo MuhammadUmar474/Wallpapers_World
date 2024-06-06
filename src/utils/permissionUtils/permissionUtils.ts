@@ -29,7 +29,7 @@ export const permission = {
       }
 
       if (res == 'granted') callback();
-      else permission.handlePermissionCases(res, 'Gallery', callback);
+      else return permission.handlePermissionCases(res, 'Gallery', callback);
     }
   },
 
@@ -37,9 +37,11 @@ export const permission = {
     switch (res) {
       case 'denied':
         permission.handleGalleryPermission(false, callback);
+        return 'denied';
 
       case 'granted':
         permission.handleGalleryPermission(false, callback);
+        return 'granted';
 
       case 'blocked':
         settings.openSettings(mediaType);

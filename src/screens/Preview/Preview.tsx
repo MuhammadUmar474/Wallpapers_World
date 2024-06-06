@@ -3,12 +3,7 @@ import {View, TouchableOpacity, Share, Alert} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
-import {
-  AntDesign,
-  Feather,
-  FontAwesome,
-  Ionicons,
-} from '../../shared/vectorIcons';
+import {AntDesign, Feather, Ionicons} from '../../shared/vectorIcons';
 import {COLORS} from '../../shared/theme';
 import {Text12} from '../../components/Text/Text';
 import styles from './Styles';
@@ -19,21 +14,21 @@ import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 const Preview = ({navigation, route}: any) => {
   const uri = route.params?.uri;
 
-  const [visible, setVisible] = useState<Boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const onBackPress = () => {
     navigation.goBack();
   };
 
   const onShareBtnPress = async () => {
-      try {
-        await Share.share({
-          message: uri,
-        });
-      } catch (error:any) {
-        Alert.alert(error.message);
-      }
-  }
+    try {
+      await Share.share({
+        message: uri,
+      });
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -42,9 +37,11 @@ const Preview = ({navigation, route}: any) => {
           <Ionicons name={'arrow-back'} size={30} color={COLORS.white} />
         </TouchableOpacity>
       </HorizontalView>
-      <FastImage source={{uri: uri}} resizeMode="cover" style={styles.img}>
+      <FastImage source={{uri: uri}} resizeMode="stretch" style={styles.img}>
         <HorizontalView style={styles.innerContainer}>
-          <TouchableOpacity style={styles.optionContainer} onPress={onShareBtnPress}>
+          <TouchableOpacity
+            style={styles.optionContainer}
+            onPress={onShareBtnPress}>
             <View style={styles.iconContainer}>
               <AntDesign name="sharealt" size={wp('7')} color={COLORS.white} />
             </View>
