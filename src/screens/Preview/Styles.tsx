@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   img: {
     flex: 1,
+    aspectRatio: calculations.screenRatio(),
     alignItems: 'center',
   },
   innerContainer: {
