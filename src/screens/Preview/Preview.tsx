@@ -11,6 +11,7 @@ import Spacer from '../../components/Spacer/Spacer';
 import HorizontalView from '../../components/HorizontalView/HorizontalView';
 import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 import Loader from '../../components/Loader/Loader';
+import BannerAdComponent from '../../components/BannerAd';
 
 const Preview = ({navigation, route}: any) => {
   // const PreviewBannerAdId: 'ca-app-pub-2587642180140061/1939293589';
@@ -43,34 +44,41 @@ const Preview = ({navigation, route}: any) => {
 
       {loader && <Loader style={styles.loader} color />}
 
-      <FastImage
-        onLoad={() => setLoader(true)}
-        onLoadEnd={() => setLoader(false)}
-        source={{uri: uri}}
-        resizeMode="stretch"
-        style={styles.img}>
-        <HorizontalView style={styles.innerContainer}>
-          <TouchableOpacity
-            style={styles.optionContainer}
-            onPress={onShareBtnPress}>
-            <View style={styles.iconContainer}>
-              <AntDesign name="sharealt" size={wp('7')} color={COLORS.white} />
-            </View>
-            <Spacer height={hp('1')} />
-            <Text12 textStyle={styles.txt}>Share</Text12>
-          </TouchableOpacity>
+      <View>
+        <FastImage
+          onLoad={() => setLoader(true)}
+          onLoadEnd={() => setLoader(false)}
+          source={{uri: uri}}
+          resizeMode="stretch"
+          style={styles.img}>
+          <HorizontalView style={styles.innerContainer}>
+            <TouchableOpacity
+              style={styles.optionContainer}
+              onPress={onShareBtnPress}>
+              <View style={styles.iconContainer}>
+                <AntDesign
+                  name="sharealt"
+                  size={wp('7')}
+                  color={COLORS.white}
+                />
+              </View>
+              <Spacer height={hp('1')} />
+              <Text12 textStyle={styles.txt}>Share</Text12>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => setVisible(!visible)}
-            style={styles.optionContainer}>
-            <View style={styles.iconContainer}>
-              <Feather name="download" size={wp('7')} color={COLORS.white} />
-            </View>
-            <Spacer height={hp('1')} />
-            <Text12 textStyle={styles.txt}>Set</Text12>
-          </TouchableOpacity>
-        </HorizontalView>
-      </FastImage>
+            <TouchableOpacity
+              onPress={() => setVisible(!visible)}
+              style={styles.optionContainer}>
+              <View style={styles.iconContainer}>
+                <Feather name="download" size={wp('7')} color={COLORS.white} />
+              </View>
+              <Spacer height={hp('1')} />
+              <Text12 textStyle={styles.txt}>Set</Text12>
+            </TouchableOpacity>
+          </HorizontalView>
+        </FastImage>
+        <BannerAdComponent />
+      </View>
 
       <BottomModal visible={visible} setVisible={setVisible} uri={uri} />
     </View>

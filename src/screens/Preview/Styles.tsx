@@ -38,15 +38,13 @@ const styles = StyleSheet.create({
   },
   loader: {
     position: 'absolute',
-    marginTop: hp('35'),
+    marginTop: hp('27'),
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   img: {
-    height: undefined,
-    width: wp('100'),
-    aspectRatio: calculations.screenRatio(),
+    flex: 1,
     alignItems: 'center',
   },
   innerContainer: {
