@@ -1,5 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {useFocusEffect} from '@react-navigation/native';
 import {
@@ -28,15 +28,17 @@ interface WallpaperItem {
 
 interface WallpaperCompProps {
   item: WallpaperItem;
+  index: number;
 }
 
 const rewardAdId = TestIds.REWARDED;
 
 const rewarded = RewardedAd.createForAdRequest(rewardAdId);
 
-const WallpaperComp: React.FC<WallpaperCompProps> = ({item}) => {
-  const [liked, setLiked] = useState(false);
+const WallpaperComp: React.FC<WallpaperCompProps> = ({item, index}) => {
+  let mod = index / 11;
 
+  const [liked, setLiked] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -113,14 +115,18 @@ const WallpaperComp: React.FC<WallpaperCompProps> = ({item}) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onWallPaperPress}>
-      <FastImage
+    <TouchableOpacity
+      disabled={Number.isInteger(mod) ? true : false}
+      style={styles.container}
+      onPress={onWallPaperPress}>
+      <Image
+        blurRadius={Number.isInteger(mod) ? 10 : 0}
         source={{
           uri: item?.src?.medium,
         }}
         style={styles.imgStyle}
       />
-      {!loaded ? null : (
+      {loaded && Number.isInteger(mod) ? (
         <TouchableOpacity
           onPress={onRewardPress}
           style={{
@@ -132,7 +138,7 @@ const WallpaperComp: React.FC<WallpaperCompProps> = ({item}) => {
             color={liked ? COLORS.red : COLORS.white}
           />
         </TouchableOpacity>
-      )}
+      ) : null}
 
       <TouchableOpacity
         onPress={() => likeIconPress(item)}
