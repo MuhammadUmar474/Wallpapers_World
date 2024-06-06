@@ -28,6 +28,7 @@ interface LikedItem {
 }
 
 const Likes: React.FC = () => {
+  // const interstitialAdId = 'ca-app-pub-2587642180140061/5858804403';
   const interstitialAdId = TestIds.INTERSTITIAL;
   const showInterstitialAd = useInterstitialAd(interstitialAdId, () => {
     console.log('Interstitial Ad Closed');
@@ -102,7 +103,7 @@ const Likes: React.FC = () => {
               Liked Wallpapers
             </Text24>
           </HorizontalView>
-        {likedItems?.length > 0 ? (
+          {likedItems?.length > 0 ? (
             <FlatList
               style={style.list}
               data={likedItems}

@@ -13,6 +13,7 @@ import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 import Loader from '../../components/Loader/Loader';
 
 const Preview = ({navigation, route}: any) => {
+  // const PreviewBannerAdId: 'ca-app-pub-2587642180140061/1939293589';
   const uri = route.params?.uri;
 
   const [loader, setLoader] = useState<boolean>(true);
