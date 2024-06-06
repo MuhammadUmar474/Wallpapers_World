@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loader: {
+    position: 'absolute',
+    marginTop: hp('35'),
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   img: {
     height: undefined,
     width: wp('100'),
