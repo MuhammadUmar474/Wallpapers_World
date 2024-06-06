@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   loader: {
     position: 'absolute',
-    marginTop: hp('30'),
+    marginTop: hp('27'),
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
