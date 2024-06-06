@@ -43,11 +43,11 @@ export const calculations = {
   screenRatio: () => {
     if (isAndroid && W_HEIGHT < 800) {
       let ratio = parseFloat(
-        ((W_HEIGHT * 0.001) / 2 + 0.16).toString(),
+        ((W_HEIGHT * 0.001) / 1.79 + 0.16).toString(),
       ).toFixed(2);
       return ratio;
     } else if (isAndroid && W_HEIGHT >= 800) {
-      let ratio = (W_HEIGHT * 0.001) / 2 + 0.11;
+      let ratio = (W_HEIGHT * 0.001) / 1.79 + 0.11;
       return ratio;
     }
   },
