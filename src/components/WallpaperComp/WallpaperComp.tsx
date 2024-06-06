@@ -37,10 +37,9 @@ const rewardAdId = TestIds.REWARDED;
 const rewarded = RewardedAd.createForAdRequest(rewardAdId);
 
 const WallpaperComp: React.FC<WallpaperCompProps> = ({item, index}) => {
-  let mod = index / 11;
-
   const [liked, setLiked] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [mod, setMod] = useState<number>(index / 11);
 
   useEffect(() => {
     const unsubscribeLoaded = rewarded.addAdEventListener(
@@ -52,7 +51,7 @@ const WallpaperComp: React.FC<WallpaperCompProps> = ({item, index}) => {
     const unsubscribeEarned = rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
       () => {
-        navigate('Preview', {uri: item?.src?.original});
+        setMod(1.1);
       },
     );
     rewarded.load();

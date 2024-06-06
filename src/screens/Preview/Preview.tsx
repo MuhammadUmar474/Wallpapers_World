@@ -49,7 +49,7 @@ const Preview = ({navigation, route}: any) => {
           onLoad={() => setLoader(true)}
           onLoadEnd={() => setLoader(false)}
           source={{uri: uri}}
-          resizeMode="stretch"
+          resizeMode="cover"
           style={styles.img}>
           <HorizontalView style={styles.innerContainer}>
             <TouchableOpacity
