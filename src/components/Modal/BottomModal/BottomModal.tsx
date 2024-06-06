@@ -42,38 +42,44 @@ const BottomModal: React.FC<BottomModalProps> = ({
   setVisible,
   uri,
 }) => {
-  const snapPoints = useMemo(() => ['37%'], []);
+  const snapPoints = useMemo(() => ['45%'], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const {selectedColor} = useContext(AppContext);
 
-  const setWallpaper = (type: string) => {
-    ManageWallpaper.setWallpaper(
-      {
-        uri: uri,
-      },
-      () => {
-        showToast('Wallpaper Updated');
-        setVisible(false);
-        BackHandler.exitApp();
-      },
-      type === 'home' ? TYPE.HOME : type === 'lock' ? TYPE.LOCK : TYPE.BOTH,
-    );
+  const setWallpaper = async (type: string) => {
+    const res = await permission.handleGalleryPermission(true, callback);
+    if (res == 'granted') {
+      ManageWallpaper.setWallpaper(
+        {
+          uri: uri,
+        },
+        () => {
+          showToast('Wallpaper Updated');
+          setVisible(false);
+          BackHandler.exitApp();
+        },
+        type === 'home' ? TYPE.HOME : type === 'lock' ? TYPE.LOCK : TYPE.BOTH,
+      );
+    }
   };
 
   const handleDownload = async () => {
-    RNFetchBlob.config({
-      fileCache: true,
-      appendExt: 'png',
-    })
-      .fetch('GET', uri)
-      .then(res => {
-        CameraRoll.saveAsset(res.data)
-          .then(res => {
-            showToast('Downloaded');
-            setVisible(false);
-          })
-          .catch(err => console.log('err', err));
-      });
+    const res = await permission.handleGalleryPermission(true, callback);
+    if (res == 'granted') {
+      RNFetchBlob.config({
+        fileCache: true,
+        appendExt: 'png',
+      })
+        .fetch('GET', uri)
+        .then(res => {
+          CameraRoll.saveAsset(res.data)
+            .then(res => {
+              showToast('Downloaded');
+              setVisible(false);
+            })
+            .catch(err => console.log('err', err));
+        });
+    }
   };
 
   useEffect(() => {
@@ -114,7 +120,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
               </Text16>
 
               <View style={styles.content}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => setWallpaper('home')}>
                   <HorizontalView
                     style={styles.row}
                     justifyContent={'flex-start'}>
@@ -125,14 +131,15 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
                     <Text14
-                      textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}
-                      onPress={() => setWallpaper('home')}>
+                      textStyle={{
+                        color: selectedColor ? COLORS.white : COLORS?.black,
+                      }}>
                       Set on home screen
                     </Text14>
                   </HorizontalView>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => setWallpaper('lock')}>
                   <HorizontalView
                     style={styles.row}
                     justifyContent={'flex-start'}>
@@ -143,14 +150,15 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
                     <Text14
-                      textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}
-                      onPress={() => setWallpaper('lock')}>
+                      textStyle={{
+                        color: selectedColor ? COLORS.white : COLORS?.black,
+                      }}>
                       Set on lock screen
                     </Text14>
                   </HorizontalView>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => setWallpaper('both')}>
                   <HorizontalView
                     style={styles.row}
                     justifyContent={'flex-start'}>
@@ -161,8 +169,9 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
                     <Text14
-                      textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}
-                      onPress={() => setWallpaper('both')}>
+                      textStyle={{
+                        color: selectedColor ? COLORS.white : COLORS?.black,
+                      }}>
                       Set on both screen
                     </Text14>
                   </HorizontalView>
@@ -178,7 +187,10 @@ const BottomModal: React.FC<BottomModalProps> = ({
                       size={20}
                       color={!selectedColor ? COLORS.black : COLORS?.white}
                     />
-                    <Text14 textStyle={{color: selectedColor ? COLORS.white : COLORS?.black}}>
+                    <Text14
+                      textStyle={{
+                        color: selectedColor ? COLORS.white : COLORS?.black,
+                      }}>
                       Save to device
                     </Text14>
                   </HorizontalView>

@@ -19,21 +19,21 @@ import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 const Preview = ({navigation, route}: any) => {
   const uri = route.params?.uri;
 
-  const [visible, setVisible] = useState<Boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const onBackPress = () => {
     navigation.goBack();
   };
 
   const onShareBtnPress = async () => {
-      try {
-        await Share.share({
-          message: uri,
-        });
-      } catch (error:any) {
-        Alert.alert(error.message);
-      }
-  }
+    try {
+      await Share.share({
+        message: uri,
+      });
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -44,7 +44,9 @@ const Preview = ({navigation, route}: any) => {
       </HorizontalView>
       <FastImage source={{uri: uri}} resizeMode="cover" style={styles.img}>
         <HorizontalView style={styles.innerContainer}>
-          <TouchableOpacity style={styles.optionContainer} onPress={onShareBtnPress}>
+          <TouchableOpacity
+            style={styles.optionContainer}
+            onPress={onShareBtnPress}>
             <View style={styles.iconContainer}>
               <AntDesign name="sharealt" size={wp('7')} color={COLORS.white} />
             </View>
