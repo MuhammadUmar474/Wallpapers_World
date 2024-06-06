@@ -141,19 +141,21 @@ const WallpaperComp: React.FC<WallpaperCompProps> = ({item, index}) => {
         </TouchableOpacity>
       ) : null}
 
-      <TouchableOpacity
-        onPress={() => likeIconPress(item)}
-        style={{
-          ...styles.likeStyle,
-          backgroundColor: false ? COLORS.red : COLORS.transparent,
-          borderWidth: false ? 0 : 1,
-        }}>
-        <FontAwesome
-          name={'heart'}
-          size={20}
-          color={liked ? COLORS.red : COLORS.white}
-        />
-      </TouchableOpacity>
+      {Number.isInteger(mod) ? null : (
+        <TouchableOpacity
+          onPress={() => likeIconPress(item)}
+          style={{
+            ...styles.likeStyle,
+            backgroundColor: false ? COLORS.red : COLORS.transparent,
+            borderWidth: false ? 0 : 1,
+          }}>
+          <FontAwesome
+            name={'heart'}
+            size={20}
+            color={liked ? COLORS.red : COLORS.white}
+          />
+        </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 };
