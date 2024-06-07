@@ -9,14 +9,14 @@ import {wp} from '../../../utils/dimensionUtils/dimensions';
 import {ImgsPath} from '../../images/ImagesPath';
 
 export const OptionsData = [
-  {id: '1', title: 'Recents'},
-  {id: '2', title: 'Trending'},
-  {id: '3', title: 'Popular'},
+  {id: '1', title: 'Trending'},
+  {id: '2', title: 'Popular'},
+  {id: '3', title: 'Animals'},
   {id: '4', title: 'Nature'},
   {id: '5', title: 'Ocean'},
-  {id: '7', title: 'Tigers'},
-  {id: '8', title: 'Pears'},
-  {id: '9', title: 'Animals'},
+  {id: '6', title: 'Tigers'},
+  {id: '7', title: 'Pears'},
+  {id: '8', title: 'Recents'},
 ];
 
 export const MoreList = [
