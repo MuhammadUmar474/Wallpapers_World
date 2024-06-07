@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, Share, Alert} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {View, TouchableOpacity,Alert} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Share from 'react-native-share';
+import ViewShot, {captureRef} from 'react-native-view-shot';
 
 import {hp, wp} from '../../utils/dimensionUtils/dimensions';
 import {AntDesign, Feather, Ionicons} from '../../shared/vectorIcons';
@@ -13,10 +15,12 @@ import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 import Loader from '../../components/Loader/Loader';
 import BannerAdComponent from '../../components/BannerAd';
 
+
 const Preview = ({navigation, route}: any) => {
   // const PreviewBannerAdId: 'ca-app-pub-2587642180140061/1939293589';
+  const [isShareOpen,setIsShareOpen] = useState(false)
   const uri = route.params?.uri;
-
+  const imgRef = useRef();
   const [loader, setLoader] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -26,11 +30,15 @@ const Preview = ({navigation, route}: any) => {
 
   const onShareBtnPress = async () => {
     try {
-      await Share.share({
-        message: uri,
+      setIsShareOpen(true)
+      const uri = await captureRef(imgRef, {
+        format: 'png',
+        quality: 0.7,
       });
-    } catch (error: any) {
-      Alert.alert(error.message);
+      await setIsShareOpen(false)
+      await Share.open({url: uri});
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -44,14 +52,17 @@ const Preview = ({navigation, route}: any) => {
 
       {loader && <Loader style={styles.loader} color />}
 
+     
+      <ViewShot ref={imgRef}>
       <View>
         <FastImage
           onLoad={() => setLoader(true)}
           onLoadEnd={() => setLoader(false)}
           source={{uri: uri}}
           resizeMode="cover"
-          style={styles.img}>
-          <HorizontalView style={styles.innerContainer}>
+          style={styles.img} >
+           {!isShareOpen &&
+           <HorizontalView style={styles.innerContainer}>
             <TouchableOpacity
               style={styles.optionContainer}
               onPress={onShareBtnPress}>
@@ -76,9 +87,14 @@ const Preview = ({navigation, route}: any) => {
               <Text12 textStyle={styles.txt}>Set</Text12>
             </TouchableOpacity>
           </HorizontalView>
-        </FastImage>
-        <BannerAdComponent />
-      </View>
+           }
+            </FastImage>
+            {!isShareOpen &&
+            <BannerAdComponent  />
+          }
+        </View>
+          </ViewShot>
+     
 
       <BottomModal visible={visible} setVisible={setVisible} uri={uri} />
     </View>

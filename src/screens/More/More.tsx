@@ -67,10 +67,11 @@ const More: React.FC = () => {
           <Text24 textStyle={style?.Heading}>HD Wallpapers</Text24>
 
           <FlatList data={MoreList} renderItem={renderItem} />
-          <View style={{bottom: hp('12')}}>
+         
+        </View>
+        <View style={{bottom: hp('20')}}>
             <BannerAdComponent />
           </View>
-        </View>
       </ImageBackground>
     </View>
   );
