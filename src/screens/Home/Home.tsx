@@ -20,7 +20,7 @@ import EmptyComp from '../../components/EmptyComp/EmptyComp';
 // ios app open ad id : ca-app-pub-2587642180140061/9699699261
 
 const Home = () => {
-  const [selectedItem, setSelectedItem] = useState<string>('Recents');
+  const [selectedItem, setSelectedItem] = useState<string>('Trending');
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchItem, setSearchItem] = useState('');
@@ -79,7 +79,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (selectedItem != 'Recents') {
+    if (selectedItem != 'Trending') {
       setIsLoading(true);
     }
   }, [selectedItem]);
