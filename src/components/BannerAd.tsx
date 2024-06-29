@@ -4,8 +4,7 @@ import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
 import { wp } from '../utils/dimensionUtils/dimensions';
 
 const BannerAdComponent = () => {
-  // const bannerAdId = 'ca-app-pub-2587642180140061/7634473390';
-  const bannerAdId = TestIds.ADAPTIVE_BANNER;
+  const bannerAdId = 'ca-app-pub-2587642180140061/7634473390';
 
   return (
     <View style={{width:wp('100')}}>
