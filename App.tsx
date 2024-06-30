@@ -16,8 +16,7 @@ Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
 const App = () => {
-  // const appOpenAdId = 'ca-app-pub-2587642180140061/3807356136';
-  const appOpenAdId = TestIds.APP_OPEN;
+  const appOpenAdId = 'ca-app-pub-2587642180140061/3807356136';
   const theme = useTheme();
   theme.colors.secondaryContainer = COLORS.transparent; // or "white" wh
 

@@ -28,8 +28,7 @@ interface LikedItem {
 }
 
 const Likes: React.FC = () => {
-  // const interstitialAdId = 'ca-app-pub-2587642180140061/5858804403';
-  const interstitialAdId = TestIds.INTERSTITIAL;
+  const interstitialAdId = 'ca-app-pub-2587642180140061/5858804403';
   const showInterstitialAd = useInterstitialAd(interstitialAdId, () => {
     console.log('Interstitial Ad Closed');
   });

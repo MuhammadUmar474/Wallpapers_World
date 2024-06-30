@@ -31,8 +31,7 @@ interface WallpaperCompProps {
   index: number;
 }
 
-// const rewardAdId = 'ca-app-pub-2587642180140061/2564859985';
-const rewardAdId = TestIds.REWARDED;
+const rewardAdId = 'ca-app-pub-2587642180140061/2564859985';
 
 const rewarded = RewardedAd.createForAdRequest(rewardAdId);
 
