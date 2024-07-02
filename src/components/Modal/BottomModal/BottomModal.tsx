@@ -42,6 +42,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
   setVisible,
   uri,
 }) => {
+  const modalBannerAdId = 'ca-app-pub-2587642180140061/7634473390';
   const snapPoints = useMemo(() => ['45%'], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const {selectedColor} = useContext(AppContext);
@@ -110,7 +111,7 @@ const BottomModal: React.FC<BottomModalProps> = ({
             snapPoints={snapPoints}
             onChange={handleSheetChanges}>
             <BottomSheetView style={styles.contentContainer}>
-              <BannerAdComponent />
+              <BannerAdComponent bannerAdId={modalBannerAdId} />
               <Text16 textStyle={styles.heading(selectedColor)}>
                 What would you like to do?
               </Text16>

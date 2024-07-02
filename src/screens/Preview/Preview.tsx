@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, TouchableOpacity,Alert} from 'react-native';
+import {View, TouchableOpacity, Alert} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Share from 'react-native-share';
 import ViewShot, {captureRef} from 'react-native-view-shot';
@@ -15,10 +15,8 @@ import BottomModal from '../../components/Modal/BottomModal/BottomModal';
 import Loader from '../../components/Loader/Loader';
 import BannerAdComponent from '../../components/BannerAd';
 
-
 const Preview = ({navigation, route}: any) => {
-  // const PreviewBannerAdId: 'ca-app-pub-2587642180140061/1939293589';
-  const [isShareOpen,setIsShareOpen] = useState(false)
+  const [isShareOpen, setIsShareOpen] = useState(false);
   const uri = route.params?.uri;
   const imgRef = useRef();
   const [loader, setLoader] = useState<boolean>(true);
@@ -30,12 +28,12 @@ const Preview = ({navigation, route}: any) => {
 
   const onShareBtnPress = async () => {
     try {
-      setIsShareOpen(true)
+      setIsShareOpen(true);
       const uri = await captureRef(imgRef, {
         format: 'png',
         quality: 0.7,
       });
-      await setIsShareOpen(false)
+      await setIsShareOpen(false);
       await Share.open({url: uri});
     } catch (e) {
       console.log(e);
@@ -52,49 +50,53 @@ const Preview = ({navigation, route}: any) => {
 
       {loader && <Loader style={styles.loader} color />}
 
-     
       <ViewShot ref={imgRef}>
-      <View>
-        <FastImage
-          onLoad={() => setLoader(true)}
-          onLoadEnd={() => setLoader(false)}
-          source={{uri: uri}}
-          resizeMode="cover"
-          style={styles.img} >
-           {!isShareOpen &&
-           <HorizontalView style={styles.innerContainer}>
-            <TouchableOpacity
-              style={styles.optionContainer}
-              onPress={onShareBtnPress}>
-              <View style={styles.iconContainer}>
-                <AntDesign
-                  name="sharealt"
-                  size={wp('7')}
-                  color={COLORS.white}
-                />
-              </View>
-              <Spacer height={hp('1')} />
-              <Text12 textStyle={styles.txt}>Share</Text12>
-            </TouchableOpacity>
+        <View>
+          <FastImage
+            onLoad={() => setLoader(true)}
+            onLoadEnd={() => setLoader(false)}
+            source={{uri: uri}}
+            resizeMode="cover"
+            style={styles.img}>
+            {!isShareOpen && (
+              <HorizontalView style={styles.innerContainer}>
+                <TouchableOpacity
+                  style={styles.optionContainer}
+                  onPress={onShareBtnPress}>
+                  <View style={styles.iconContainer}>
+                    <AntDesign
+                      name="sharealt"
+                      size={wp('7')}
+                      color={COLORS.white}
+                    />
+                  </View>
+                  <Spacer height={hp('1')} />
+                  <Text12 textStyle={styles.txt}>Share</Text12>
+                </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => setVisible(!visible)}
-              style={styles.optionContainer}>
-              <View style={styles.iconContainer}>
-                <Feather name="download" size={wp('7')} color={COLORS.white} />
-              </View>
-              <Spacer height={hp('1')} />
-              <Text12 textStyle={styles.txt}>Set</Text12>
-            </TouchableOpacity>
-          </HorizontalView>
-           }
-            </FastImage>
-            {!isShareOpen &&
-            <BannerAdComponent  />
-          }
+                <TouchableOpacity
+                  onPress={() => setVisible(!visible)}
+                  style={styles.optionContainer}>
+                  <View style={styles.iconContainer}>
+                    <Feather
+                      name="download"
+                      size={wp('7')}
+                      color={COLORS.white}
+                    />
+                  </View>
+                  <Spacer height={hp('1')} />
+                  <Text12 textStyle={styles.txt}>Set</Text12>
+                </TouchableOpacity>
+              </HorizontalView>
+            )}
+          </FastImage>
+          {!isShareOpen && (
+            <BannerAdComponent
+              bannerAdId={'ca-app-pub-2587642180140061/1939293589'}
+            />
+          )}
         </View>
-          </ViewShot>
-     
+      </ViewShot>
 
       <BottomModal visible={visible} setVisible={setVisible} uri={uri} />
     </View>
