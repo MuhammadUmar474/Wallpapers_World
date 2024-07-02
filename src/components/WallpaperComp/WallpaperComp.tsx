@@ -1,12 +1,7 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {useFocusEffect} from '@react-navigation/native';
-import {
-  RewardedAd,
-  RewardedAdEventType,
-  TestIds,
-} from 'react-native-google-mobile-ads';
+import {RewardedAd, RewardedAdEventType} from 'react-native-google-mobile-ads';
 
 import styles from './styles';
 import {COLORS} from '../../shared/theme';

@@ -17,8 +17,6 @@ import {
 import {navigate} from '../../navigation/rootNavigation';
 import {ImgsPath} from '../../assets/images/ImagesPath';
 import AppContext from '../../context/AppContext';
-import BannerAdComponent from '../../components/BannerAd';
-import {hp} from '../../utils/dimensionUtils/dimensions';
 
 interface RenderItemProps {
   item: {name: string; icon: React.ReactNode};
@@ -42,9 +40,10 @@ const renderItem: React.FC<RenderItemProps> = ({item}) => {
       handlePhonePress();
     } else if (item?.name === 'Email') {
       handleEmailPress();
-    }
-    else  {
-      Linking?.openURL('https://play.google.com/store/apps/details?id=com.wallpapers_world');
+    } else {
+      Linking?.openURL(
+        'https://play.google.com/store/apps/details?id=com.wallpapers_world',
+      );
     }
   };
 
@@ -70,11 +69,9 @@ const More: React.FC = () => {
           <Text24 textStyle={style?.Heading}>HD Wallpapers</Text24>
 
           <FlatList data={MoreList} renderItem={renderItem} />
-         
         </View>
-        <View style={{bottom: hp('20')}}>
-            <BannerAdComponent />
-          </View>
+        {/* <View style={{bottom: hp('20')}}>
+          </View> */}
       </ImageBackground>
     </View>
   );
